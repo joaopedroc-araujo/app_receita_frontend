@@ -4,6 +4,11 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+// import Recipes from './pages/Recipes';
+import Footer from './components/Footer';
+import Drinks from './components/Drinks';
+import Meals from './components/Meals';
+import Header from './components/Header';
 
 function App() {
   return (
@@ -11,8 +16,29 @@ function App() {
       <span className="logo">TRYBE</span>
       <Switch>
         <Route path="/" exact component={ Login } />
+        <Route
+          path="/meals"
+          render={ () => (
+            <>
+              <Header />
+              <Meals />
+              <Footer />
+            </>
+          ) }
+        />
+        <Route
+          path="/drinks"
+          render={ () => (
+            <>
+              <Header />
+              <Drinks />
+              <Footer />
+            </>
+          ) }
+        />
       </Switch>
     </div>
+
   );
 }
 

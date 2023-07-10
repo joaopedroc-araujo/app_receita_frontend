@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const MIN_LENGTH = 6;
 
@@ -6,6 +7,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     const emailCheck = email.toLowerCase().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
@@ -16,6 +18,10 @@ function Login() {
       setDisabled(true);
     }
   }, [email, password]);
+
+  const handleLogin = () => {
+    history.push('/meals');
+  };
 
   return (
     <form>
@@ -36,9 +42,9 @@ function Login() {
         type="button"
         data-testid="login-submit-btn"
         disabled={ disabled }
+        onClick={ handleLogin }
       >
         Enter
-
       </button>
     </form>
   );
