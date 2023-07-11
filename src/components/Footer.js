@@ -1,4 +1,6 @@
 import { useHistory } from 'react-router-dom';
+import drinkIcon from '../images/drinkIcon.svg';
+import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
   const history = useHistory();
@@ -12,11 +14,26 @@ function Footer() {
 
   return (
     <div>
-      <footer data-testid="footer">
-        <p> teste de footer</p>
-        <button onClick={ () => handleButtonClick('Meals') }>Meals</button>
-        <button onClick={ () => handleButtonClick('Drinks') }>Drinks</button>
+      <footer
+        data-testid="footer"
+        style={ { marginTop: 'auto' } }
+      >
+        <button onClick={ () => handleButtonClick('Meals') }>
+          <img
+            data-testid="drinks-bottom-btn"
+            src={ drinkIcon }
+            alt="drink icon"
+          />
+        </button>
+        <button onClick={ () => handleButtonClick('Drinks') }>
+          <img
+            data-testid="meals-bottom-btn"
+            src={ mealIcon }
+            alt="meal icon"
+          />
+        </button>
       </footer>
+
     </div>
   );
 }

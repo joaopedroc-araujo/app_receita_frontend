@@ -2,6 +2,16 @@ img {
   width: 10%;
 }
 
+body {
+  height: 640px;
+  overflow: auto;
+  width: 360px;
+}
+
+header {
+  height: 100%;
+}
+
 .meals {
   align-items: center;
   background: #0fa36b;

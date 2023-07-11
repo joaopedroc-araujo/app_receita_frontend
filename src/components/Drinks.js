@@ -13,12 +13,19 @@ function Drinks() {
     [],
   );
 
+  const updateDrinks = (newDrinks) => {
+    setDrinks(newDrinks);
+  };
+
   const maxRecipes = 12;
 
   return (
-    <div>
+    <div className="container overflow-auto">
       <h1>Drinks</h1>
-      <Categories category="drinks" />
+      <Categories
+        category="drinks"
+        updateRecipes={ updateDrinks }
+      />
 
       <ul>
         {drinks.slice(0, maxRecipes).map((drink, index) => (
