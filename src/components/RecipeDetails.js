@@ -8,6 +8,7 @@ function RecipeDetails() {
   const match = useRouteMatch('/meals/:id');
   const isMeal = match !== null;
   const history = useHistory();
+
   useEffect(() => {
     // Faz um fetch de acordo com qual rota está sendo acessada
     const fetchRecipe = async () => {
@@ -37,21 +38,47 @@ function RecipeDetails() {
   }
   console.log(recipe);
   return (
-    <div>
+    <div className="recipe-details">
       <h1>Recipe Details</h1>
-      <h2>{recipe.strMeal || recipe.strDrink}</h2>
-      <img src={ recipe.strMealThumb || recipe.strDrinkThumb } alt="recipe" />
+      <h2 data-testid="recipe-title">{recipe.strMeal || recipe.strDrink}</h2>
+      <img
+        src={ recipe.strMealThumb || recipe.strDrinkThumb }
+        data-testid="recipe-photo"
+        alt="recipe"
+      />
+      <p data-testid="recipe-category">
+        {isMeal ? recipe.strCategory : recipe.strAlcoholic}
+      </p>
       <h3>Ingredients</h3>
       <ul>
-        {Object.keys(recipe).filter((key) => key.includes('Ingredient'))
-          .filter((ingredient) => recipe[ingredient]
-          !== '' && recipe[ingredient] !== null)
+        {Object.keys(recipe)
+          .filter((key) => key.includes('Ingredient') && recipe[key])
           .map((ingredient, index) => (
-            <li key={ index }>{recipe[ingredient]}</li>
+            <li
+              key={ index }
+              data-testid={ `${index}-ingredient-name-and-measure` }
+            >
+              {`${recipe[ingredient]} - ${
+                recipe[`strMeasure${index + 1}`]
+              }`}
+            </li>
           ))}
       </ul>
       <h3>Instructions</h3>
-      <p>{recipe.strInstructions}</p>
+      <p data-testid="instructions">{recipe.strInstructions}</p>
+      {isMeal && (
+        <iframe
+          width="560"
+          height="315"
+          src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write;
+           encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          data-testid="video"
+        />
+      )}
     </div>
   );
 }

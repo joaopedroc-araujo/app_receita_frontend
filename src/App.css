@@ -78,7 +78,18 @@ header {
   }
 }
 
+iframe {
+  max-width: 100%;
+}
+
 footer {
   bottom: 0;
   position: fixed;
+}
+
+.recipe-details {
+  margin: 0 auto;
+  max-width: 800px;
+  overflow: auto;
+  padding: 16px;
 }
