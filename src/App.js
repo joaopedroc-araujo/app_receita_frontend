@@ -5,9 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './pages/Login';
-// import Meals from './pages/Meals';
-// import Drinks from './pages/Drinks';
-// import Profile from './pages/Profile';
 // import Favorites from './pages/Favorites';
 
 function App() {
@@ -23,7 +20,6 @@ function App() {
         render={ () => (
           <>
             <Header />
-            {/* <Meals /> */}
           </>
         ) }
       />
@@ -32,7 +28,6 @@ function App() {
         render={ () => (
           <>
             <Header />
-            {/* <Drinks /> */}
           </>
         ) }
       />
@@ -45,7 +40,6 @@ function App() {
         render={ () => (
           <>
             <Header />
-            {/* <Profile /> */}
           </>
         ) }
       />
