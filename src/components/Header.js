@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import SearchBar from './SearchBar';
 import '../styles/Header.css';
 
 import logo from '../images/logo.svg';
@@ -7,6 +8,7 @@ import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
 
 function Header() {
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const location = useLocation();
   const showSearchIcon = ['/meals', '/drinks'].includes(location.pathname);
 
@@ -27,25 +29,38 @@ function Header() {
     }
   };
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    setIsSearchVisible(!isSearchVisible);
+  };
+
   return (
     <header>
       <div className="title-container">
         <img src={ logo } alt="logo" />
-        <h2 data-testid="page-title">
+        <h1 data-testid="page-title">
           {getPageTitle(location.pathname)}
-        </h2>
+        </h1>
       </div>
 
       <div className="header-btns">
         {showSearchIcon && (
-          <Link to="/search">
-            <img src={ searchIcon } alt="Search" data-testid="search-top-btn" />
-          </Link>
+          <button
+            type="button"
+            onClick={ handleClick }
+          >
+            <img
+              src={ searchIcon }
+              alt="Search"
+              data-testid="search-top-btn"
+            />
+          </button>
         )}
         <Link to="/profile">
           <img src={ profileIcon } alt="Profile" data-testid="profile-top-btn" />
         </Link>
       </div>
+      {isSearchVisible && <SearchBar />}
     </header>
   );
 }

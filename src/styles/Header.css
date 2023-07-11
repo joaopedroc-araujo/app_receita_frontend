@@ -33,3 +33,8 @@ header {
   margin-right: 10px;
   width: 110px;
 }
+
+button {
+  background-color: #fcdc36;
+  border: none;
+}

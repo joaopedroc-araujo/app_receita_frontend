@@ -7,7 +7,7 @@ import Header from './components/Header';
 import Login from './pages/Login';
 import Meals from './pages/Meals';
 import Drinks from './pages/Drinks';
-// import Profile from './pages/Profile';
+import Profile from './pages/Profile';
 // import Favorites from './pages/Favorites';
 
 function App() {
@@ -43,7 +43,10 @@ function App() {
       <Route
         path="/profile"
         render={ () => (
-          <Header />
+          <>
+            <Header />
+            <Profile />
+          </>
         ) }
       />
       <Route
