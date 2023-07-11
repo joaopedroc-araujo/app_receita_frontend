@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Categories from './Categories';
 
 function Drinks() {
@@ -33,16 +34,18 @@ function Drinks() {
             key={ drink.idDrink }
             data-testid={ `${index}-recipe-card` }
           >
-            <img
-              src={ drink.strDrinkThumb }
-              alt={ drink.strDrinkThumb }
-              data-testid={ `${index}-card-img` }
-            />
-            <h3
-              data-testid={ `${index}-card-name` }
-            >
-              {drink.strDrink}
-            </h3>
+            <Link to={ `/drinks/${drink.idDrink}` }>
+              <img
+                src={ drink.strDrinkThumb }
+                alt={ drink.strDrinkThumb }
+                data-testid={ `${index}-card-img` }
+              />
+              <h3
+                data-testid={ `${index}-card-name` }
+              >
+                {drink.strDrink}
+              </h3>
+            </Link>
           </li>
         ))}
       </ul>

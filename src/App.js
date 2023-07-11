@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import Drinks from './components/Drinks';
 import Meals from './components/Meals';
 import Header from './components/Header';
+import RecipeDetails from './components/RecipeDetails';
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
             </>
           ) }
         />
+        <Route path="/meals/:id" component={ RecipeDetails } />
+        <Route path="/drinks/:id" component={ RecipeDetails } />
       </Switch>
     </div>
 

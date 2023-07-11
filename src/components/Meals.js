@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import Categories from './Categories';
 
 function Meals() {
@@ -32,16 +33,18 @@ function Meals() {
             key={ meal.idMeal }
             data-testid={ `${index}-recipe-card` }
           >
-            <img
-              src={ meal.strMealThumb }
-              alt={ meal.strMeal }
-              data-testid={ `${index}-card-img` }
-            />
-            <h3
-              data-testid={ `${index}-card-name` }
-            >
-              {meal.strMeal}
-            </h3>
+            <Link to={ `/meals/${meal.idMeal}` }>
+              <img
+                src={ meal.strMealThumb }
+                alt={ meal.strMeal }
+                data-testid={ `${index}-card-img` }
+              />
+              <h3
+                data-testid={ `${index}-card-name` }
+              >
+                {meal.strMeal}
+              </h3>
+            </Link>
           </li>
         ))}
       </ul>
