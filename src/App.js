@@ -5,63 +5,70 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './pages/Login';
-import Meals from './pages/Meals';
-import Drinks from './pages/Drinks';
+// import Recipes from './pages/Recipes';
+import Footer from './components/Footer';
+import Drinks from './components/Drinks';
+import Meals from './components/Meals';
+import RecipeDetails from './components/RecipeDetails';
 import Profile from './pages/Profile';
-// import Favorites from './pages/Favorites';
 
 function App() {
   return (
-    <Switch>
-      <Route
-        path="/"
-        exact
-        component={ Login }
-      />
-      <Route
-        path="/meals"
-        render={ () => (
-          <>
+    <div className="meals">
+      <span className="logo">TRYBE</span>
+      <Switch>
+        <Route path="/" exact component={ Login } />
+        <Route
+          path="/meals"
+          exact
+          render={ () => (
+            <>
+              <Header />
+              <Meals />
+              <Footer />
+            </>
+          ) }
+        />
+        <Route
+          path="/drinks"
+          exact
+          render={ () => (
+            <>
+              <Header />
+              <Drinks />
+              <Footer />
+            </>
+          ) }
+        />
+        <Route path="/meals/:id" component={ RecipeDetails } />
+        <Route path="/drinks/:id" component={ RecipeDetails } />
+        <Route path="/drinks:id-da-receita/in-progress" component={ Drinks } />
+        <Route
+          path="/profile"
+          render={ () => (
+            <>
+              <Header />
+              <Profile />
+              <Footer />
+            </>
+          ) }
+        />
+        <Route
+          path="/done-recipes"
+          render={ () => (
             <Header />
-            <Meals />
-          </>
-        ) }
-      />
-      <Route
-        path="/drinks"
-        render={ () => (
-          <>
+          ) }
+        />
+        <Route
+          path="/favorite-recipes"
+          render={ () => (
             <Header />
-            <Drinks />
-          </>
-        ) }
-      />
-      <Route path="/meals:id-da-receita" component={ Meals } />
-      <Route path="/drinks:id-da-receita" component={ Drinks } />
-      <Route path="/meals:id-da-receita/in-progress" component={ Meals } />
-      <Route path="/drinks:id-da-receita/in-progress" component={ Drinks } />
-      <Route
-        path="/profile"
-        render={ () => (
-          <>
-            <Header />
-            <Profile />
-          </>
-        ) }
-      />
-      <Route
-        path="/done-recipes"
-        render={ () => (
-          <Header />
-        ) }
-      />
-      <Route
-        path="/favorite-recipes"
-        render={ () => (
-          <Header />
-        ) }
-      />
-    </Switch>
+          ) }
+        />
+      </Switch>
+
+    </div>
+
   );
 }
 

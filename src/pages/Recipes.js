@@ -1,6 +1,13 @@
+import Drinks from '../components/Drinks';
+import Meals from '../components/Meals';
+
 function Recipes() {
   return (
-    <h1>Teste</h1>
+    <div>
+      <h1>Recipes</h1>
+      <Meals />
+      <Drinks />
+    </div>
   );
 }
 
