@@ -4,6 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch } from 'react-router-dom';
 import Login from './pages/Login';
+import Recipes from './pages/Recipes';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <span className="logo">TRYBE</span>
       <Switch>
         <Route path="/" exact component={ Login } />
+        <Route path="/meals" component={ Recipes } />
       </Switch>
     </div>
   );
