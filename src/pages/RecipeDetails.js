@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import Recomended from '../components/Recomended';
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
@@ -79,6 +80,8 @@ function RecipeDetails() {
           data-testid="video"
         />
       )}
+
+      <Recomended />
     </div>
   );
 }

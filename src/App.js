@@ -9,8 +9,8 @@ import Login from './pages/Login';
 import Footer from './components/Footer';
 import Drinks from './components/Drinks';
 import Meals from './components/Meals';
-import RecipeDetails from './components/RecipeDetails';
 import Profile from './pages/Profile';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
