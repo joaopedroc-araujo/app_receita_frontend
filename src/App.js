@@ -19,6 +19,7 @@ function App() {
         <Route path="/" exact component={ Login } />
         <Route
           path="/meals"
+          exact
           render={ () => (
             <>
               <Header />
@@ -29,6 +30,7 @@ function App() {
         />
         <Route
           path="/drinks"
+          exact
           render={ () => (
             <>
               <Header />
