@@ -77,3 +77,8 @@ header {
     transform: rotate(-10deg);
   }
 }
+
+footer {
+  bottom: 0;
+  position: fixed;
+}

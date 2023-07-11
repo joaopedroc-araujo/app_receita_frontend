@@ -1,4 +1,5 @@
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import React from 'react';
 import drinkIcon from '../images/drinkIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
@@ -18,22 +19,25 @@ function Footer() {
         data-testid="footer"
         style={ { marginTop: 'auto' } }
       >
-        <button onClick={ () => handleButtonClick('Meals') }>
-          <img
-            data-testid="drinks-bottom-btn"
-            src={ drinkIcon }
-            alt="drink icon"
-          />
-        </button>
-        <button onClick={ () => handleButtonClick('Drinks') }>
-          <img
-            data-testid="meals-bottom-btn"
-            src={ mealIcon }
-            alt="meal icon"
-          />
-        </button>
+        <Link to="/drinks">
+          <button onClick={ () => handleButtonClick('Meals') }>
+            <img
+              data-testid="drinks-bottom-btn"
+              src={ drinkIcon }
+              alt="drink icon"
+            />
+          </button>
+        </Link>
+        <Link to="/meals">
+          <button onClick={ () => handleButtonClick('Drinks') }>
+            <img
+              data-testid="meals-bottom-btn"
+              src={ mealIcon }
+              alt="meal icon"
+            />
+          </button>
+        </Link>
       </footer>
-
     </div>
   );
 }

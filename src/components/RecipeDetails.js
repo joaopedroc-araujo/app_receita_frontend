@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
   const { id } = useParams();
   const match = useRouteMatch('/meals/:id');
   const isMeal = match !== null;
-
+  const history = useHistory();
   useEffect(() => {
     // Faz um fetch de acordo com qual rota está sendo acessada
     const fetchRecipe = async () => {
@@ -16,10 +17,12 @@ function RecipeDetails() {
         response = await fetch(
           `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`,
         );
+        history.push(`/meals/${id}`);
       } else {
         response = await fetch(
           `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`,
         );
+        history.push(`/drinks/${id}`);
       }
       const data = await response.json();
       // Seta o estado de acordo com o resultado do fetch
@@ -27,7 +30,7 @@ function RecipeDetails() {
     };
 
     fetchRecipe();
-  }, [id, isMeal]);
+  }, [history, id, isMeal]);
 
   if (!recipe) {
     return <div>Loading...</div>;

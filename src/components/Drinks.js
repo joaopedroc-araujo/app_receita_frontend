@@ -30,11 +30,15 @@ function Drinks() {
 
       <ul>
         {drinks.slice(0, maxRecipes).map((drink, index) => (
-          <li
+          <Link
+            to={ `/drinks/${drink.idDrink}` }
             key={ drink.idDrink }
-            data-testid={ `${index}-recipe-card` }
           >
-            <Link to={ `/drinks/${drink.idDrink}` }>
+            <li
+              key={ drink.idDrink }
+              data-testid={ `${index}-recipe-card` }
+            >
+
               <img
                 src={ drink.strDrinkThumb }
                 alt={ drink.strDrinkThumb }
@@ -45,8 +49,8 @@ function Drinks() {
               >
                 {drink.strDrink}
               </h3>
-            </Link>
-          </li>
+            </li>
+          </Link>
         ))}
       </ul>
     </div>

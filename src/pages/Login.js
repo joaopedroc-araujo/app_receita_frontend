@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
 const MIN_LENGTH = 6;
 
@@ -19,10 +20,6 @@ function Login() {
     }
   }, [email, password]);
 
-  const handleLogin = () => {
-    history.push('/meals');
-  };
-
   return (
     <form>
       <h1>Login</h1>
@@ -38,14 +35,25 @@ function Login() {
         data-testid="password-input"
         onChange={ ({ target }) => setPassword(target.value) }
       />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        disabled={ disabled }
-        onClick={ handleLogin }
-      >
-        Enter
-      </button>
+      <Link to="/meals">
+        <button
+          type="button"
+          data-testid="login-submit-btn"
+          disabled={ disabled }
+          onClick={ () => {
+            localStorage.setItem('mealsToken', 1);
+            localStorage.setItem('cocktailsToken', 1);
+            const user = {
+              email,
+            };
+            localStorage.setItem('user', JSON.stringify(user));
+            history.push('/foods');
+          } }
+        >
+          Enter
+
+        </button>
+      </Link>
     </form>
   );
 }
