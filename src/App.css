@@ -77,7 +77,12 @@ header {
   }
 }
 
+iframe {
+  max-width: 100%;
+}
+
 footer {
   bottom: 0;
   position: fixed;
-} */
+}
+*/
