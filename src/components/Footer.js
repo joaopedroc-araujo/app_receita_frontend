@@ -5,10 +5,11 @@ import mealIcon from '../images/mealIcon.svg';
 
 function Footer() {
   const history = useHistory();
+
   const handleButtonClick = (buttonName) => {
     if (buttonName === 'Meals') {
       history.push('/meals');
-    } else if (buttonName === 'Drinks') {
+    } else {
       history.push('/drinks');
     }
   };
@@ -20,19 +21,23 @@ function Footer() {
         style={ { marginTop: 'auto' } }
       >
         <Link to="/drinks">
-          <button onClick={ () => handleButtonClick('Meals') }>
+          <button onClick={ () => handleButtonClick('Drinks') }>
             <img
               data-testid="drinks-bottom-btn"
               src={ drinkIcon }
+              width="50"
+              height="50"
               alt="drink icon"
             />
           </button>
         </Link>
         <Link to="/meals">
-          <button onClick={ () => handleButtonClick('Drinks') }>
+          <button onClick={ () => handleButtonClick('Meals') }>
             <img
               data-testid="meals-bottom-btn"
               src={ mealIcon }
+              width="50"
+              height="50"
               alt="meal icon"
             />
           </button>
