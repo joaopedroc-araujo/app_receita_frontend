@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import styles from '../styles/Categories.module.css';
 
 function Categories({ category, updateRecipes }) {
   const [categories, setCategories] = useState([]);
@@ -78,7 +79,7 @@ function Categories({ category, updateRecipes }) {
 
   const maxCategories = 5;
   return (
-    <div>
+    <div className={ styles.container__categories }>
       <h1>
         {categories.slice(0, maxCategories).map((menuCategory) => (
           <button
