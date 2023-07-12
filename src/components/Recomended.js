@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
+import { Carousel } from 'react-bootstrap';
 import useRecomendFetch from '../hooks/useRecomendFetch';
+// import './Recomended.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function Recomended() {
   const [recomendations, setRecomendations] = useState(null);
@@ -16,13 +19,45 @@ function Recomended() {
     return <div>Loading...</div>;
   }
 
+  // Agrupa as recomendações em pares:
+  const groupedRecomendations = recomendations.reduce((result, item, index) => {
+    if (index % 2 === 0) {
+      result.push([item]);
+    } else {
+      result[result.length - 1].push(item);
+    }
+    return result;
+  }, []);
+
   return (
-    <div>
-      <ul>
-        {recomendations.map((item, index) => (
-          <li key={ index }>{item.strMeal || item.strDrink}</li>
+    <div className="recomended-carousel">
+      <Carousel>
+        {groupedRecomendations.map((group, index) => (
+          <Carousel.Item
+            key={ index }
+            display="flex"
+          >
+            <div className="d-flex justify-content-around">
+              {group.map((item, itemIndex) => (
+                <div
+                  data-testid={ `${index * 2 + itemIndex}-recommendation-card` }
+                  key={ itemIndex }
+                  className="d-flex flex-column align-items-center card-item"
+                >
+                  <img
+                    src={ item.strMealThumb || item.strDrinkThumb }
+                    alt={ item.strMeal || item.strDrink }
+                    className="d-block w-100"
+                  />
+                  <h3 data-testid={ `${index * 2 + itemIndex}-recommendation-title` }>
+                    {item.strMeal || item.strDrink}
+                  </h3>
+                </div>
+              ))}
+            </div>
+          </Carousel.Item>
         ))}
-      </ul>
+      </Carousel>
     </div>
   );
 }

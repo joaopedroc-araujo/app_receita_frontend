@@ -90,6 +90,17 @@ footer {
 .recipe-details {
   margin: 0 auto;
   max-width: 800px;
-  overflow: auto;
+
+  /* overflow: auto; */
   padding: 16px;
+}
+
+.recipe-detail-img {
+  align-items: center;
+  margin-left: 20%;
+  width: 60%;
+}
+
+.card-item {
+  display: flex;
 }

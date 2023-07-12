@@ -46,6 +46,7 @@ function RecipeDetails() {
         src={ recipe.strMealThumb || recipe.strDrinkThumb }
         data-testid="recipe-photo"
         alt="recipe"
+        className="recipe-detail-img"
       />
       <p data-testid="recipe-category">
         {isMeal ? recipe.strCategory : recipe.strAlcoholic}
