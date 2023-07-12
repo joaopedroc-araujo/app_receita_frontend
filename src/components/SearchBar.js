@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { createBrowserHistory } from 'history';
 import { useHistory } from 'react-router-dom/';
+<<<<<<< HEAD
 // import pesquisa from '../images/searchIcon.svg';
+=======
+//import pesquisa from '../images/searchIcon.svg';
+>>>>>>> ef4fbb52569b402bb128d73d1e06284051a6a6fb
 
 function SearchBar() {
   const history = useHistory();
@@ -9,9 +13,15 @@ function SearchBar() {
   const [searchtype, setSearch] = useState('ingredient');
   const [input, setInput] = useState('');
 
+<<<<<<< HEAD
   // function HandleVisivel() {
   // setVisivel(!visivel);
   // }
+=======
+ /* function HandleVisivel() {
+    setVisivel(!visivel);
+  }*/
+>>>>>>> ef4fbb52569b402bb128d73d1e06284051a6a6fb
 
   const performDrinkSearch = async () => {
     const resp = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`);
@@ -104,12 +114,18 @@ function SearchBar() {
 
   return (
     <div>
+<<<<<<< HEAD
 
       {' '}
       <button onClick={ HandleVisivel } data-testid="search-top-btn">
         <img src={ pesquisa } alt="icone de pesquisa" />
       </button>
 
+=======
+     /* <button onClick={ HandleVisivel } data-testid="search-top-btn">
+        <img src={ pesquisa } alt="icone de pesquisa" />
+      </button>*/
+>>>>>>> ef4fbb52569b402bb128d73d1e06284051a6a6fb
       {visivel && (
         <div className="container-invisible">
           <input
