@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import '../styles/Header.css';
+import styles from '../styles/Header.module.css';
 import SearchBar from './SearchBar';
 import logo from '../images/logo.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -35,14 +35,14 @@ function Header() {
 
   return (
     <header>
-      <div className="title-container">
+      <div className={ styles.title__container }>
         <img src={ logo } alt="logo" />
         <h1 data-testid="page-title">
           {getPageTitle(location.pathname)}
         </h1>
       </div>
 
-      <div className="header-btns">
+      <div className={ styles.header__btns }>
         {showSearchIcon && (
           <button
             type="button"
