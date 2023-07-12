@@ -6,6 +6,7 @@ import Categories from './Categories';
 
 function Meals() {
   const [meals, setMeals] = useState([]);
+  const { results } = useSearchContext();
 
   useEffect(
     () => {
@@ -16,11 +17,13 @@ function Meals() {
     [],
   );
 
-  const updateDrinks = (newDrinks) => {
+  const updateMeals = (newDrinks) => {
     setMeals(newDrinks);
   };
 
   const maxRecipes = 12;
+  console.log(meals);
+  console.log(results);
 
   return (
     <div className={ styles.meals__container }>
@@ -30,33 +33,23 @@ function Meals() {
       </div>
       <Categories
         category="meals"
-        updateRecipes={ updateDrinks }
+        updateRecipes={ updateMeals }
       />
       <ul>
-        {meals.slice(0, maxRecipes).map((meal, index) => (
-          <Link
-            to={ `/meals/${meal.idMeal}` }
-            key={ meal.idMeal }
-          >
-            <li
-              key={ meal.idMeal }
-              data-testid={ `${index}-recipe-card` }
-            >
-
-              <img
-                src={ meal.strMealThumb }
-                alt={ meal.strMeal }
-                data-testid={ `${index}-card-img` }
-              />
-              <h3
-                data-testid={ `${index}-card-name` }
-              >
-                {meal.strMeal}
-              </h3>
-
-            </li>
-          </Link>
-        ))}
+        {(results.length > 0 ? results : meals)
+          .slice(0, maxRecipes)
+          .map((meal, index) => (
+            <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>
+              <li key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
+                <img
+                  src={ meal.strMealThumb }
+                  alt={ meal.strMeal }
+                  data-testid={ `${index}-card-img` }
+                />
+                <h3 data-testid={ `${index}-card-name` }>{meal.strMeal}</h3>
+              </li>
+            </Link>
+          ))}
         {console.log(meals)}
       </ul>
     </div>

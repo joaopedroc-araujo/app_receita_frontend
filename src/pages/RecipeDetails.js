@@ -37,7 +37,7 @@ function RecipeDetails() {
   if (!recipe) {
     return <div>Loading...</div>;
   }
-  console.log(recipe);
+  // console.log(recipe);
   return (
     <div className="recipe-details">
       <h1>Recipe Details</h1>

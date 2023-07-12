@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import { useHistory } from 'react-router-dom/';
+import { useSearchContext } from '../context/SearchContext';
 
 function SearchBar() {
   const history = useHistory();
