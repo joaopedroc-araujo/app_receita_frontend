@@ -1,27 +1,11 @@
 import { useState } from 'react';
 import { createBrowserHistory } from 'history';
 import { useHistory } from 'react-router-dom/';
-<<<<<<< HEAD
-// import pesquisa from '../images/searchIcon.svg';
-=======
-//import pesquisa from '../images/searchIcon.svg';
->>>>>>> ef4fbb52569b402bb128d73d1e06284051a6a6fb
 
 function SearchBar() {
   const history = useHistory();
-  // const [visivel, setVisivel] = useState(false);
   const [searchtype, setSearch] = useState('ingredient');
   const [input, setInput] = useState('');
-
-<<<<<<< HEAD
-  // function HandleVisivel() {
-  // setVisivel(!visivel);
-  // }
-=======
- /* function HandleVisivel() {
-    setVisivel(!visivel);
-  }*/
->>>>>>> ef4fbb52569b402bb128d73d1e06284051a6a6fb
 
   const performDrinkSearch = async () => {
     const resp = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${input}`);
@@ -114,57 +98,44 @@ function SearchBar() {
 
   return (
     <div>
-<<<<<<< HEAD
 
-      {' '}
-      <button onClick={ HandleVisivel } data-testid="search-top-btn">
-        <img src={ pesquisa } alt="icone de pesquisa" />
-      </button>
-
-=======
-     /* <button onClick={ HandleVisivel } data-testid="search-top-btn">
-        <img src={ pesquisa } alt="icone de pesquisa" />
-      </button>*/
->>>>>>> ef4fbb52569b402bb128d73d1e06284051a6a6fb
-      {visivel && (
-        <div className="container-invisible">
-          <input
-            type="radio"
-            id="Ingredient"
-            data-testid="ingredient-search-radio"
-            name="radio-type"
-            value="ingredient"
-            onClick={ (e) => setSearch(e.target.value) }
-          />
-          <label htmlFor="Ingredient">Ingredient</label>
-          <input
-            type="radio"
-            id="name"
-            data-testid="name-search-radio"
-            name="radio-type"
-            value="name"
-            onClick={ (e) => setSearch(e.target.value) }
-          />
-          <label htmlFor="Name">Name</label>
-          <input
-            type="radio"
-            id="letter"
-            data-testid="first-letter-search-radio"
-            value="letter"
-            name="radio-type"
-            onClick={ (e) => setSearch(e.target.value) }
-          />
-          <label htmlFor="letter">Letter</label>
-          <input
-            type="text"
-            data-testid="search-input"
-            onChange={ (e) => setInput(e.target.value) }
-          />
-          <button data-testid="exec-search-btn" onClick={ Search }>
-            Search
-          </button>
-        </div>
-      )}
+      <div className="container-invisible">
+        <input
+          type="radio"
+          id="Ingredient"
+          data-testid="ingredient-search-radio"
+          name="radio-type"
+          value="ingredient"
+          onClick={ (e) => setSearch(e.target.value) }
+        />
+        <label htmlFor="Ingredient">Ingredient</label>
+        <input
+          type="radio"
+          id="name"
+          data-testid="name-search-radio"
+          name="radio-type"
+          value="name"
+          onClick={ (e) => setSearch(e.target.value) }
+        />
+        <label htmlFor="Name">Name</label>
+        <input
+          type="radio"
+          id="letter"
+          data-testid="first-letter-search-radio"
+          value="letter"
+          name="radio-type"
+          onClick={ (e) => setSearch(e.target.value) }
+        />
+        <label htmlFor="letter">Letter</label>
+        <input
+          type="text"
+          data-testid="search-input"
+          onChange={ (e) => setInput(e.target.value) }
+        />
+        <button data-testid="exec-search-btn" onClick={ Search }>
+          Search
+        </button>
+      </div>
 
     </div>
   );

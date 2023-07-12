@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import SearchBar from './SearchBar';
 import '../styles/Header.css';
-
+import SearchBar from './SearchBar';
 import logo from '../images/logo.svg';
 import searchIcon from '../images/searchIcon.svg';
 import profileIcon from '../images/profileIcon.svg';
