@@ -13,7 +13,6 @@ import Profile from './pages/Profile';
 function App() {
   return (
     <div className="meals">
-      <span className="logo">TRYBE</span>
       <Switch>
         <Route path="/" exact component={ Login } />
         <Route

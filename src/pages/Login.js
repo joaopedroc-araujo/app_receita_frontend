@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import logo from '../images/logoRecipesApp.svg';
+import '../styles/Login.css';
 
 const MIN_LENGTH = 6;
 
@@ -22,6 +24,12 @@ function Login() {
 
   return (
     <form>
+      <div className="login-logo">
+        <img
+          src={ logo }
+          alt="logo"
+        />
+      </div>
       <h1>Login</h1>
       <input
         placeholder="Email"
