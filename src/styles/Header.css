@@ -2,9 +2,10 @@ header {
   background-color: #fcdc36;
   display: flex;
   flex-shrink: 0;
-  height: 52px;
+  height: fit-content;
   justify-content: space-between;
   width: 360px;
+
 }
 
 .title-container h2 {

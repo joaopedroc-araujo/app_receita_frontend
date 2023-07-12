@@ -89,6 +89,7 @@ footer {
 
 .recipe-details {
   margin: 0 auto;
+  margin-top: 400%;
   max-width: 800px;
 
   /* overflow: auto; */
