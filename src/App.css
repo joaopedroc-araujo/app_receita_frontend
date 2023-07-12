@@ -1,4 +1,4 @@
-img {
+/* img {
   width: 10%;
 }
 
@@ -21,9 +21,8 @@ header {
   font-family: sans-serif;
   height: 100vh;
   justify-content: center;
-
-  /* width: 100%; */
-}
+  width: 100%;
+} */
 
 
 /*
@@ -40,7 +39,7 @@ header {
 }
 */
 
-.meals > .logo {
+/* .meals > .logo {
   animation: shake 1.5s infinite ease;
   color: aliceblue;
   font-family: Montserrat , sans-serif;
@@ -81,4 +80,4 @@ header {
 footer {
   bottom: 0;
   position: fixed;
-}
+} */

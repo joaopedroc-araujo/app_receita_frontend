@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import styles from '../styles/Meals.module.css';
+import mealIcon from '../images/mealIcon.svg';
 import Categories from './Categories';
 
 function Meals() {
@@ -21,8 +23,11 @@ function Meals() {
   const maxRecipes = 12;
 
   return (
-    <div className="container overflow-auto">
-      <h1>Meals</h1>
+    <div className={ styles.meals__container }>
+      <div className={ styles.logo__container }>
+        <img src={ mealIcon } alt="logo-meals" />
+        <h1>Meals</h1>
+      </div>
       <Categories
         category="meals"
         updateRecipes={ updateDrinks }

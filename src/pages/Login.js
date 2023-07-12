@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import logo from '../images/logoRecipesApp.svg';
+import styles from '../styles/Login.module.css';
 
 const MIN_LENGTH = 6;
 
@@ -21,7 +23,13 @@ function Login() {
   }, [email, password]);
 
   return (
-    <form>
+    <form className={ styles.form__login }>
+      <div className={ styles.login__logo }>
+        <img
+          src={ logo }
+          alt="logo"
+        />
+      </div>
       <h1>Login</h1>
       <input
         placeholder="Email"
@@ -38,6 +46,7 @@ function Login() {
       <Link to="/meals">
         <button
           type="button"
+          className={ styles.email_button }
           data-testid="login-submit-btn"
           disabled={ disabled }
           onClick={ () => {
