@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 import { SearchProvider } from './context/SearchContext';
+import DoneRecipes from './pages/DoneRecipes';
 
 function App() {
   return (
@@ -65,7 +66,10 @@ function App() {
           <Route
             path="/done-recipes"
             render={ () => (
-              <Header />
+              <>
+                <Header />
+                <DoneRecipes />
+              </>
             ) }
           />
           <Route
