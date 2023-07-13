@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useParams, useRouteMatch } from 'react-router-dom';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import shareIcon from '../images/shareIcon.svg';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+
+const copy = require('clipboard-copy');
 
 function RecipeDetails() {
   const [recipe, setRecipe] = useState(null);
@@ -8,6 +13,9 @@ function RecipeDetails() {
   const match = useRouteMatch('/meals/:id');
   const isMeal = match !== null;
   const history = useHistory();
+  const [showLinkCopiedMsg, setShowLinkCopiedMsg] = useState(false);
+  const [favoriteIcon, setFavoriteIcon] = useState(false);
+
   useEffect(() => {
     // Faz um fetch de acordo com qual rota está sendo acessada
     const fetchRecipe = async () => {
@@ -32,26 +40,130 @@ function RecipeDetails() {
     fetchRecipe();
   }, [history, id, isMeal]);
 
-  if (!recipe) {
-    return <div>Loading...</div>;
-  }
-  console.log(recipe);
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const isFavorite = storedRecipes.some(
+        (storedRecipe) => storedRecipe.id === id,
+      );
+      if (isFavorite) {
+        setFavoriteIcon(true);
+      } else {
+        setFavoriteIcon(false);
+      }
+    }
+  }, [id]);
+
+  const recipeObject = (recipeObj) => {
+    if (recipeObj.idMeal) {
+      const mealObject = {
+        id: recipeObj.idMeal,
+        type: 'meal',
+        nationality: recipeObj.strArea,
+        category: recipeObj.strCategory,
+        alcoholicOrNot: '',
+        name: recipeObj.strMeal,
+        image: recipeObj.strMealThumb,
+      };
+      return mealObject;
+    }
+    const drinkObject = {
+      id: recipeObj.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: recipeObj.strCategory,
+      alcoholicOrNot: recipeObj.strAlcoholic,
+      name: recipeObj.strDrink,
+      image: recipeObj.strDrinkThumb,
+    };
+    return drinkObject;
+  };
+
+  const handleFavorite = () => {
+    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      if (!favoriteIcon) {
+        const storedRecipesArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify(
+            [...storedRecipesArray,
+              recipeObject(recipe),
+            ],
+          ),
+        );
+        setFavoriteIcon(true);
+      } else {
+        const storedRecipesArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
+        // storedRecipesArray.indexOf(colunaOperadorValor.coluna);
+        const indexOfRecipeToRemove = storedRecipesArray.find(
+          (storedRecipe, index) => (storedRecipe.id === recipe.id ? index : false),
+        );
+        storedRecipesArray.splice(indexOfRecipeToRemove, 1);
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify(
+            [
+              ...storedRecipesArray,
+            ],
+          ),
+        );
+        setFavoriteIcon(false);
+      }
+    } else {
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(
+          [
+            recipeObject(recipe),
+          ],
+        ),
+      );
+      setFavoriteIcon(true);
+    }
+  };
+
   return (
     <div>
-      <h1>Recipe Details</h1>
-      <h2>{recipe.strMeal || recipe.strDrink}</h2>
-      <img src={ recipe.strMealThumb || recipe.strDrinkThumb } alt="recipe" />
-      <h3>Ingredients</h3>
-      <ul>
-        {Object.keys(recipe).filter((key) => key.includes('Ingredient'))
-          .filter((ingredient) => recipe[ingredient]
-          !== '' && recipe[ingredient] !== null)
-          .map((ingredient, index) => (
-            <li key={ index }>{recipe[ingredient]}</li>
-          ))}
-      </ul>
-      <h3>Instructions</h3>
-      <p>{recipe.strInstructions}</p>
+      <header>
+        <button
+          onClick={ () => {
+            setShowLinkCopiedMsg(true);
+            copy(window.location.href);
+          } }
+        >
+          <img src={ shareIcon } alt="share icon" data-testid="share-btn" />
+        </button>
+        { showLinkCopiedMsg && <p>Link copied!</p> }
+        <button onClick={ handleFavorite }>
+          <img
+            src={ favoriteIcon ? blackHeartIcon : whiteHeartIcon }
+            alt="favorite icon"
+            data-testid="favorite-btn"
+          />
+        </button>
+
+      </header>
+      {
+        !recipe ? <p>Loading...</p> : (
+          <>
+            <h1>Recipe Details</h1>
+            <h2>{recipe.strMeal || recipe.strDrink}</h2>
+            <img src={ recipe.strMealThumb || recipe.strDrinkThumb } alt="recipe" />
+            <h3>Ingredients</h3>
+            <ul>
+              {Object.keys(recipe).filter((key) => key.includes('Ingredient'))
+                .filter((ingredient) => recipe[ingredient]
+            !== '' && recipe[ingredient] !== null)
+                .map((ingredient, index) => (
+                  <li key={ index }>{recipe[ingredient]}</li>
+                ))}
+            </ul>
+            <h3>Instructions</h3>
+            <p>{recipe.strInstructions}</p>
+          </>)
+      }
+
     </div>
   );
 }
