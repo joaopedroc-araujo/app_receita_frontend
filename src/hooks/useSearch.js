@@ -1,14 +1,36 @@
-import { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const useSearch = () => {
   const [searchType, setSearchType] = useState('Ingredient');
   const [searchInput, setSearchInput] = useState('');
   const [results, setResults] = useState([]);
+  const [chosenRecipes, setChosenRecipes] = useState('');
   const location = useLocation();
+  const history = useHistory();
 
   const mealsURL = 'https://www.themealdb.com/api/json/v1/1/';
   const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/';
+
+  useEffect(() => {
+    setChosenRecipes(location.pathname);
+  }, [location]);
+
+  // useEffect(() => {
+  //   if (results && results !== null && results.length === 0) {
+  //     global.alert('Sorry, we haven\'t found any recipes for these filters.');
+  //   }
+  // }, [results]);
+
+  useEffect(() => {
+    if (results && results.length === 1) {
+      if (chosenRecipes.includes('/meals')) {
+        history.push(`/meals/${results[0].idMeal}`);
+      } else if (chosenRecipes.includes('/drinks')) {
+        history.push(`/drinks/${results[0].idDrink}`);
+      }
+    }
+  }, [results, history, chosenRecipes]);
 
   const getMealsEndpoint = () => {
     let endpoint;
@@ -23,7 +45,7 @@ const useSearch = () => {
       }
       endpoint = `${mealsURL}search.php?f=${searchInput}`;
     }
-    console.log(endpoint);
+    // console.log(endpoint);
     return endpoint;
   };
 
@@ -60,8 +82,7 @@ const useSearch = () => {
     const { endpoint, dataKey } = getEndpoint();
     const response = await fetch(endpoint);
     const data = await response.json();
-    console.log(data);
-    setResults(data[dataKey]);
+    setResults(data[dataKey] || []);
   };
 
   return {
