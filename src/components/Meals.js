@@ -6,7 +6,6 @@ import Categories from './Categories';
 function Meals() {
   const [meals, setMeals] = useState([]);
   const { results } = useSearchContext();
-  const url = window.location.href;
 
   useEffect(
     () => {
@@ -24,7 +23,7 @@ function Meals() {
   const maxRecipes = 12;
   // console.log(meals);
   // console.log(results);
-  console.log(url);
+  // console.log(url);
 
   return (
     <div className="container overflow-auto">

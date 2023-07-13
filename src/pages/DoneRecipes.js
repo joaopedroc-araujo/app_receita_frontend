@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import clipboardCopy from 'clipboard-copy';
-import shareIcon from '../images/shareIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import shareIcon from '../images/shareIcon.svg';
+import LinkCopied from '../components/LinkCopied';
 
 function DoneRecipes() {
   const doneRecipes = localStorage.getItem('doneRecipes');
@@ -9,7 +10,7 @@ function DoneRecipes() {
 
   const handleShare = () => {
     clipboardCopy(url);
-    global.alert('Link copiado!');
+    return (<LinkCopied />);
   };
 
   return (
