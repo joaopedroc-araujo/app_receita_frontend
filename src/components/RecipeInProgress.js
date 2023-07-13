@@ -5,14 +5,13 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import style from '../styles/RecipeInProgress.module.css';
 
 const placeholder = 'https://via.placeholder.com/360x161?text=Recipe%20Thumb';
-// const name = 'Feijoada';
-// const category = 'rango bão';
 const URL_MEALS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
 function RecipeInProgress() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [recipe, setRecipe] = useState({});
+  const [checkedIngredients, setCheckedIngredients] = useState([]);
 
   useEffect(() => {
     const { pathname } = window.location;
@@ -29,6 +28,12 @@ function RecipeInProgress() {
   const toggleFavorite = (event) => {
     event.preventDefault();
     setIsFavorite(!isFavorite);
+  };
+
+  const handleIngredientToggle = (index) => {
+    const newCheckedIngredients = [...checkedIngredients];
+    newCheckedIngredients[index] = !newCheckedIngredients[index];
+    setCheckedIngredients(newCheckedIngredients);
   };
 
   return (
@@ -73,20 +78,33 @@ function RecipeInProgress() {
       <div className={ style.instructions__container }>
         <h3>Ingredients</h3>
         <ul>
-          {Object.keys(recipe).filter((key) => key.includes('Ingredient' || 'Measure'))
-            .filter((ingredient) => recipe[ingredient]
-          !== '' && recipe[ingredient] !== null)
+          {Object.keys(recipe)
+            .filter(
+              (key) => key.includes('Ingredient' || 'Measure'),
+            )
+            .filter(
+              (ingredient) => recipe[ingredient] !== ''
+                && recipe[ingredient] !== null,
+            )
             .map((ingredient, index) => (
               <label
                 key={ index }
                 data-testid={ `${index}-ingredient-step` }
+                style={
+                  checkedIngredients[index]
+                    ? { textDecoration: 'line-through solid rgb(0, 0, 0)' }
+                    : {}
+                }
               >
                 <li>
                   <input
                     type="checkbox"
+                    onChange={ () => handleIngredientToggle(index) }
                   />
+                  {' '}
                   {`${recipe[ingredient]}`}
                 </li>
+
               </label>
             ))}
         </ul>

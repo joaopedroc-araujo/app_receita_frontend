@@ -67,11 +67,19 @@
   padding: 30px 80px;
 }
 
-.instructions__container input {
+/* .instructions__container input {
   border: 2px solid grey;
   gap: 2px;
 
+} */
+
+.checked {
+  text-decoration: line-through solid black;
 }
+
+/* .igredientUnCheck {
+  text-decoration: none;
+} */
 
 .actionButtons {
   display: flex;
