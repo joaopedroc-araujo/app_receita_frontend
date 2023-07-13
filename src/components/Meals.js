@@ -21,7 +21,7 @@ function Meals() {
   };
 
   const maxRecipes = 12;
-  console.log(meals);
+  // console.log(meals);
   console.log(results);
 
   return (

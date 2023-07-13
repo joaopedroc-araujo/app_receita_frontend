@@ -6,23 +6,29 @@ function SearchBar() {
   const [chosenRecipes, setChosenRecipes] = useState('');
   const location = useLocation();
   const {
-    searchType,
+    // searchType,
     setSearchType,
     searchInput,
     setSearchInput,
     handleSearch,
+    results,
+
   } = useSearchContext();
 
   useEffect(() => {
     setChosenRecipes(location.pathname);
   }, [location, chosenRecipes]);
 
+  useEffect(() => {
+    if (results && results !== null && results.length === 0) {
+      global.alert('Sorry, we haven\'t found any recipes for these filters.');
+    }
+  }, [results]);
+
   const handleClick = ({ target }) => {
-    setSearchType(target.value); // atualize o tipo de busca
+    setSearchType(target.value); // Atualiza o tipo de busca
   };
 
-  console.log(searchType);
-  console.log(searchInput);
   return (
     <div className="search-bar">
       <input
@@ -65,7 +71,6 @@ function SearchBar() {
         onClick={ handleSearch } // Executa a busca ao clicar no botão
       >
         Procurar
-
       </button>
     </div>
   );
