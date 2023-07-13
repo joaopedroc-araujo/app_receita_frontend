@@ -9,6 +9,7 @@ import Drinks from './components/Drinks';
 import Meals from './components/Meals';
 import RecipeDetails from './components/RecipeDetails';
 import Profile from './pages/Profile';
+import FavoriteRecipes from './pages/FavoriteRecipes';
 
 function App() {
   return (
@@ -59,7 +60,7 @@ function App() {
         <Route
           path="/favorite-recipes"
           render={ () => (
-            <Header />
+            <FavoriteRecipes />
           ) }
         />
       </Switch>

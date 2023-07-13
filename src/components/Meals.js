@@ -57,6 +57,7 @@ function Meals() {
             </li>
           </Link>
         ))}
+        {console.log(meals)}
       </ul>
     </div>
   );
