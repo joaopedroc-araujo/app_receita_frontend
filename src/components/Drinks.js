@@ -52,6 +52,7 @@ function Drinks() {
             </li>
           </Link>
         ))}
+        {console.log(drinks)}
       </ul>
     </div>
   );
