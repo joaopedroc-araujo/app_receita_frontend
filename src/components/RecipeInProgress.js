@@ -77,11 +77,13 @@ function RecipeInProgress() {
             .filter((ingredient) => recipe[ingredient]
           !== '' && recipe[ingredient] !== null)
             .map((ingredient, index) => (
-              <label key={ index }>
+              <label
+                key={ index }
+                data-testid={ `${index}-ingredient-step` }
+              >
                 <li>
                   <input
                     type="checkbox"
-                    data-testid={ `${index}-ingredient-step` }
                   />
                   {`${recipe[ingredient]}`}
                 </li>
