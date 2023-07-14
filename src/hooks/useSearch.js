@@ -83,6 +83,11 @@ const useSearch = () => {
     const response = await fetch(endpoint);
     const data = await response.json();
     setResults(data[dataKey] || []);
+    // if (results && results !== null && results.length === 0) {
+    //   return (
+    //     <NoRecipes />
+    //   );
+    // }
   };
 
   return {
