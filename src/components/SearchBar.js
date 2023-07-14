@@ -12,7 +12,6 @@ function SearchBar() {
     setSearchInput,
     handleSearch,
     results,
-
   } = useSearchContext();
 
   useEffect(() => {
