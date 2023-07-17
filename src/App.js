@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Drinks from './components/Drinks';
 import Meals from './components/Meals';
 import RecipeDetails from './components/RecipeDetails';
+import RecipeInProgress from './components/RecipeInProgress';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 
@@ -38,9 +39,16 @@ function App() {
             </>
           ) }
         />
-        <Route path="/meals/:id" component={ RecipeDetails } />
-        <Route path="/drinks/:id" component={ RecipeDetails } />
-        <Route path="/drinks:id-da-receita/in-progress" component={ Drinks } />
+        <Route exact path="/meals/:id" component={ RecipeDetails } />
+        <Route exact path="/drinks/:id" component={ RecipeDetails } />
+        <Route
+          path="/meals/:id/in-progress"
+          component={ RecipeInProgress }
+        />
+        <Route
+          path="/drinks/:id/in-progress"
+          component={ RecipeInProgress }
+        />
         <Route
           path="/profile"
           render={ () => (
