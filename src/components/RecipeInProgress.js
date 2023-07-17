@@ -3,6 +3,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import style from '../styles/RecipeInProgress.module.css';
+import useLocalStorage from '../hooks/useLocalStorage3';
 
 const placeholder = 'https://via.placeholder.com/360x161?text=Recipe%20Thumb';
 const URL_MEALS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
@@ -12,7 +13,10 @@ function RecipeInProgress() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [checkedIngredients, setCheckedIngredients] = useState([]);
+  // const [progress, setProgress] = useLocalStorage('inProgressRecipes', []);
+  // const [inProgress, setInProgress] = useState([]);
 
+  // faz a requisicao da receita e salva no estado
   useEffect(() => {
     const { pathname } = window.location;
     const id = pathname.split('/')[2];
@@ -25,11 +29,28 @@ function RecipeInProgress() {
     fetchRecipe();
   }, []);
 
+  // salva o estado checkedIngredients no localStorage
+  useEffect(() => {
+    const { pathname } = window.location;
+    const id = pathname.split('/')[2];
+    console.log(id, checkedIngredients);
+  }, []);
+
+  // função que controla o estado de favorito
   const toggleFavorite = (event) => {
     event.preventDefault();
     setIsFavorite(!isFavorite);
   };
 
+  // --------------------------- // 13-07-2023
+
+  // falta criar função que salva o estado checkedIngredients no localStorage
+  // o hook useLocalStorage usa o progress é o proprio estado: inProgressRecipes
+  // e o setProgress é a função que altera o estado: []
+
+  // ----------------------------//
+
+  // função que controla o estado de checkedIngredients
   const handleIngredientToggle = (index) => {
     const newCheckedIngredients = [...checkedIngredients];
     newCheckedIngredients[index] = !newCheckedIngredients[index];
@@ -99,6 +120,7 @@ function RecipeInProgress() {
                 <li>
                   <input
                     type="checkbox"
+                    // value={ recipe[ingredient] }
                     onChange={ () => handleIngredientToggle(index) }
                   />
                   {' '}
