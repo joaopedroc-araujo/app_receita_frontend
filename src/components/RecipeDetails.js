@@ -123,6 +123,10 @@ function RecipeDetails() {
     }
   };
 
+  if (!recipe) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <div>
