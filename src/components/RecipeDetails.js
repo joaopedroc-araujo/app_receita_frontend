@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import Recomended from './Recomended';
 
 const copy = require('clipboard-copy');
 
@@ -192,6 +193,7 @@ function RecipeDetails() {
           />
         )}
       </div>
+      <Recomended />
     </>
   );
 }
