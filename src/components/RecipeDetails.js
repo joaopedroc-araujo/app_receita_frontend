@@ -181,7 +181,7 @@ function RecipeDetails() {
         <p data-testid="instructions">{recipe.strInstructions}</p>
         {isMeal && (
           <iframe
-            width="560"
+            width="360"
             height="315"
             src={ recipe.strYoutube.replace('watch?v=', 'embed/') }
             title="YouTube video player"

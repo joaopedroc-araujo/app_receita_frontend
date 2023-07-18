@@ -5,12 +5,12 @@ import { Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './pages/Login';
 import Footer from './components/Footer';
-import Drinks from './components/Drinks';
-import Meals from './components/Meals';
 import RecipeDetails from './components/RecipeDetails';
 import RecipeInProgress from './components/RecipeInProgress';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import Meals from './components/Meals';
+import Drinks from './components/Drinks';
 
 function App() {
   return (
