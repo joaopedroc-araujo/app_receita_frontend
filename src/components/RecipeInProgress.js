@@ -9,7 +9,6 @@ import useLocalStorage from '../hooks/useLocalStorage3';
 const placeholder = 'https://via.placeholder.com/360x161?text=Recipe%20Thumb';
 const URL_MEALS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-
 const copy = require('clipboard-copy');
 
 function RecipeInProgress() {
@@ -19,7 +18,6 @@ function RecipeInProgress() {
   const [favoriteIcon, setFavoriteIcon] = useState(false);
   const [showLinkCopiedMsg, setShowLinkCopiedMsg] = useState(false);
   const { id } = useParams();
-
   const getFavoriteRecipes = () => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
       const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -33,8 +31,7 @@ function RecipeInProgress() {
       }
     }
   };
-
-  // faz a requisicao da receita e salva no estado; verifica se a receita é favorita
+  // faz a requisicao da receita e salva no estado; Verifica se a receita é favorita
   useEffect(() => {
     const { pathname } = window.location;
     const url = pathname.includes('meals') ? URL_MEALS : URL_DRINKS;
@@ -50,7 +47,6 @@ function RecipeInProgress() {
     fetchRecipe();
     getFavoriteRecipes();
   }, []);
-
   // handleFavoriteRecipeObject
   const favoriteRecipeObject = (recipeObj) => {
     if (recipeObj.idMeal) {
@@ -76,7 +72,6 @@ function RecipeInProgress() {
     };
     return drinkObject;
   };
-
   // Função que controla o estado de favorito
   const handleFavorite = () => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
@@ -93,7 +88,6 @@ function RecipeInProgress() {
         setFavoriteIcon(true);
       } else {
         const storedRecipesArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
         // storedRecipesArray.indexOf(colunaOperadorValor.coluna);
         const indexOfRecipeToRemove = storedRecipesArray.find(
           (storedRecipe, index) => (storedRecipe.id === recipe.id ? index : false),
@@ -121,7 +115,6 @@ function RecipeInProgress() {
       setFavoriteIcon(true);
     }
   };
-
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
     if (recipe.idMeal || recipe.idDrink) {
@@ -130,7 +123,6 @@ function RecipeInProgress() {
       );
     }
   }, [checkedIngredients]);
-
   // função que controla o estado de checkedIngredients
   const getValue = (event) => {
     const { value, checked } = event.target;
@@ -140,13 +132,11 @@ function RecipeInProgress() {
       setCheckedIngredients(checkedIngredients.filter((item) => item !== value));
     }
   };
-
   const handleCheckedIngredients = (ingredient) => {
     if (progress[id]) {
       return progress[id].includes(ingredient);
     }
   };
-
   return (
     <main>
       <div className={ style.imageRecipe }>
@@ -161,9 +151,9 @@ function RecipeInProgress() {
           type="button"
           onClick={ () => {
             setShowLinkCopiedMsg(true);
-            copy(`${window.location.origin}/${recipe.idDrink
-              ? 'drinks'
-              : 'meals'}/${recipe.idDrink || recipe.idMeal}`);
+            copy(`${window.location.origin}/${
+              recipe.idDrink ? 'drinks' : 'meals'
+            }/${recipe.idDrink || recipe.idMeal}`);
           } }
         >
           <img data-testid="share-btn" src={ shareIcon } alt="share-icon" />
@@ -185,7 +175,6 @@ function RecipeInProgress() {
         data-testid="recipe-title"
       >
         { recipe.strMeal || recipe.strDrink }
-
       </h1>
       <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
       <div className={ style.instructions__container }>
@@ -219,7 +208,6 @@ function RecipeInProgress() {
                   {' '}
                   {`${recipe[ingredient]}`}
                 </li>
-
               </label>
             ))}
         </ul>
@@ -238,8 +226,6 @@ function RecipeInProgress() {
         </button>
       </div>
     </main>
-
   );
 }
-
 export default RecipeInProgress;
