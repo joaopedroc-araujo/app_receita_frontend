@@ -9,6 +9,8 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 
 const copy = require('clipboard-copy');
 
+const allStoredRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+
 function FavoriteRecipes() {
   const [showLinkCopiedMsg, setShowLinkCopiedMsg] = useState(false);
   const [storedRecipes, setStoredRecipes] = useState([]);
@@ -43,13 +45,67 @@ function FavoriteRecipes() {
     getStoredRecipes();
   };
 
+  const handleFilters = (target) => {
+    if (target.innerHTML === 'Food') {
+      console.log('Food:');
+      const foodRecipes = allStoredRecipes.filter((recipe) => recipe.type === 'meal');
+      setStoredRecipes(foodRecipes);
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(
+          [
+            ...foodRecipes,
+          ],
+        ),
+      );
+    } else if (target.innerHTML === 'Drinks') {
+      console.log('Drinks:');
+      const drinksRecipes = allStoredRecipes.filter((recipe) => recipe.type === 'drink');
+      setStoredRecipes(drinksRecipes);
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(
+          [
+            ...drinksRecipes,
+          ],
+        ),
+      );
+    } else {
+      console.log('All:');
+      setStoredRecipes(allStoredRecipes);
+      localStorage.setItem(
+        'favoriteRecipes',
+        JSON.stringify(
+          [
+            ...allStoredRecipes,
+          ],
+        ),
+      );
+    }
+  };
+
   return (
     <div>
       <Header />
       <div>
-        <button data-testid="filter-by-all-btn">All</button>
-        <button data-testid="filter-by-meal-btn">Food</button>
-        <button data-testid="filter-by-drink-btn">Drinks</button>
+        <button
+          data-testid="filter-by-all-btn"
+          onClick={ ({ target }) => handleFilters(target) }
+        >
+          All
+        </button>
+        <button
+          data-testid="filter-by-meal-btn"
+          onClick={ ({ target }) => handleFilters(target) }
+        >
+          Food
+        </button>
+        <button
+          data-testid="filter-by-drink-btn"
+          onClick={ ({ target }) => handleFilters(target) }
+        >
+          Drinks
+        </button>
       </div>
       {
         storedRecipes.length > 0 ? storedRecipes.map((recipe, index) => (
@@ -80,7 +136,6 @@ function FavoriteRecipes() {
             <button
               onClick={ () => {
                 setShowLinkCopiedMsg(true);
-                console.log(window.location);
                 copy(`${window.location.origin}/${recipe.type}s/${recipe.id}`);
               } }
             >
