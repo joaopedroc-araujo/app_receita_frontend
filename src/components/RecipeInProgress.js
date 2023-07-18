@@ -9,6 +9,8 @@ const placeholder = 'https://via.placeholder.com/360x161?text=Recipe%20Thumb';
 const URL_MEALS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
 
+let checkedIngredients2 = [];
+
 function RecipeInProgress() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [recipe, setRecipe] = useState({});
@@ -26,12 +28,19 @@ function RecipeInProgress() {
       setRecipe(data.meals ? data.meals[0] : data.drinks[0]);
     };
     fetchRecipe();
+    // getCheckedIngredients();
   }, []);
 
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
-    setProgress({ ...progress, [recipe.idMeals || recipe.idDrinks]: checkedIngredients });
-    console.log('checkedIngredients', checkedIngredients);
+    if (recipe.idMeal || recipe.idDrink) {
+      setProgress(
+        { ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients },
+      );
+      console.log('esse eh o progress 1');
+      console.log(progress);
+      // console.log('checkedIngredients', checkedIngredients);
+    }
   }, [checkedIngredients]);
 
   // função que controla o estado de favorito
@@ -45,11 +54,25 @@ function RecipeInProgress() {
     const { value, checked } = event.target;
     if (checked) {
       setCheckedIngredients([...checkedIngredients, value]);
-    } else setCheckedIngredients(checkedIngredients.filter((item) => item !== value));
+      checkedIngredients2 = [...checkedIngredients2, value];
+    } else {
+      setCheckedIngredients(checkedIngredients.filter((item) => item !== value));
+      checkedIngredients2 = [checkedIngredients.filter((item) => item !== value)];
+    }
   };
 
-  const handleCheckedIngredients = (ingredient) => checkedIngredients
-    .includes(ingredient);
+  const handleCheckedIngredients = (ingredient) => {
+    if (progress) {
+      console.log('progress aí:');
+      if (recipe) {
+        const id = recipe.idMeal || recipe.idDrink;
+
+        if (progress[id]) {
+          return progress[id].includes(ingredient);
+        }
+      }
+    }
+  };
 
   return (
     <main>
