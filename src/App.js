@@ -7,10 +7,11 @@ import Login from './pages/Login';
 import Footer from './components/Footer';
 import Drinks from './components/Drinks';
 import Meals from './components/Meals';
-import RecipeDetails from './components/RecipeDetails';
+
 import RecipeInProgress from './components/RecipeInProgress';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
