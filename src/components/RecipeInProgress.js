@@ -13,8 +13,7 @@ function RecipeInProgress() {
   const [isFavorite, setIsFavorite] = useState(false);
   const [recipe, setRecipe] = useState({});
   const [checkedIngredients, setCheckedIngredients] = useState([]);
-  // const [progress, setProgress] = useLocalStorage('inProgressRecipes', []);
-  // const [inProgress, setInProgress] = useState([]);
+  const [progress, setProgress] = useLocalStorage('inProgressRecipes', {});
 
   // faz a requisicao da receita e salva no estado
   useEffect(() => {
@@ -31,10 +30,9 @@ function RecipeInProgress() {
 
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
-    const { pathname } = window.location;
-    const id = pathname.split('/')[2];
-    console.log(id, checkedIngredients);
-  }, []);
+    setProgress({ ...progress, [recipe.idMeals || recipe.idDrinks]: checkedIngredients });
+    console.log('checkedIngredients', checkedIngredients);
+  }, [checkedIngredients]);
 
   // função que controla o estado de favorito
   const toggleFavorite = (event) => {
@@ -42,20 +40,16 @@ function RecipeInProgress() {
     setIsFavorite(!isFavorite);
   };
 
-  // --------------------------- // 13-07-2023
-
-  // falta criar função que salva o estado checkedIngredients no localStorage
-  // o hook useLocalStorage usa o progress é o proprio estado: inProgressRecipes
-  // e o setProgress é a função que altera o estado: []
-
-  // ----------------------------//
-
   // função que controla o estado de checkedIngredients
-  const handleIngredientToggle = (index) => {
-    const newCheckedIngredients = [...checkedIngredients];
-    newCheckedIngredients[index] = !newCheckedIngredients[index];
-    setCheckedIngredients(newCheckedIngredients);
+  const getValue = (event) => {
+    const { value, checked } = event.target;
+    if (checked) {
+      setCheckedIngredients([...checkedIngredients, value]);
+    } else setCheckedIngredients(checkedIngredients.filter((item) => item !== value));
   };
+
+  const handleCheckedIngredients = (ingredient) => checkedIngredients
+    .includes(ingredient);
 
   return (
     <main>
@@ -112,7 +106,7 @@ function RecipeInProgress() {
                 key={ index }
                 data-testid={ `${index}-ingredient-step` }
                 style={
-                  checkedIngredients[index]
+                  checkedIngredients.includes(recipe[ingredient])
                     ? { textDecoration: 'line-through solid rgb(0, 0, 0)' }
                     : {}
                 }
@@ -120,8 +114,9 @@ function RecipeInProgress() {
                 <li>
                   <input
                     type="checkbox"
-                    // value={ recipe[ingredient] }
-                    onChange={ () => handleIngredientToggle(index) }
+                    checked={ handleCheckedIngredients(recipe[ingredient]) }
+                    value={ recipe[ingredient] }
+                    onChange={ (event) => getValue(event) }
                   />
                   {' '}
                   {`${recipe[ingredient]}`}
