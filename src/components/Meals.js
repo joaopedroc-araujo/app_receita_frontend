@@ -27,7 +27,7 @@ function Meals() {
   // console.log(url);
 
   return (
-    <div className={ styles.meals__container }>
+    <div className={ `${styles.meals__container} main-content` }>
       <div className={ styles.logo__container }>
         <img src={ mealIcon } alt="logo-meals" />
         <h1>Meals</h1>
@@ -51,7 +51,7 @@ function Meals() {
               </li>
             </Link>
           ))}
-        {console.log(meals)}
+        {/* {console.log(meals)} */}
       </ul>
     </div>
   );

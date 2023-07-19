@@ -38,60 +38,66 @@ function DoneRecipes() {
         Drinks
       </button>
 
-      {filteredRecipes.map((recipe, index) => (
-        <div key={ index }>
+      {filteredRecipes.length === 0 ? (
+        <p>No recipes yet</p>
+      ) : (
+        filteredRecipes.map((recipe, index) => (
+          <div key={ index }>
 
-          <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <img
+                className="done-recipe-image"
+                src={ recipe.image }
+                alt={ recipe.name }
+                data-testid={ `${index}-horizontal-image` }
+              />
+              <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
+            </Link>
 
-          <img
-            src={ recipe.image }
-            alt={ recipe.name }
-            data-testid={ `${index}-horizontal-image` }
-          />
-
-          <p data-testid={ `${index}-horizontal-top-text` }>
-            {recipe.type === 'meal'
-              ? `${recipe.nationality} - ${recipe.category}`
-              : recipe.alcoholicOrNot}
-          </p>
-
-          {recipe.tags && recipe.tags.map((tag, tagIndex) => (
-            <p key={ tagIndex } data-testid={ `${index}-${tag}-horizontal-tag` }>
-              {tag}
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {recipe.type === 'meal'
+                ? `${recipe.nationality} - ${recipe.category}`
+                : recipe.alcoholicOrNot}
             </p>
-          ))}
 
-          <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
+            {recipe.tags && recipe.tags.map((tag, tagIndex) => (
+              <p key={ tagIndex } data-testid={ `${index}-${tag}-horizontal-tag` }>
+                {tag}
+              </p>
+            ))}
 
-          <button
-            type="button"
-            onClick={ () => handleShare(recipe.id, recipe.type) }
-          >
-            <img
-              src={ shareIcon }
-              alt="share"
-              data-testid={ `${index}-horizontal-share-btn` }
-            />
-          </button>
+            <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
 
-          <button
-            type="button"
-            onClick={ () => handleFavorite(recipe.id, recipe.type) }
-          >
-            <img
-              src={ blackHeartIcon }
-              alt="favorite"
-              data-testid={ `${index}-horizontal-favorite-btn` }
-            />
-          </button>
+            <button
+              type="button"
+              onClick={ () => handleShare(recipe.id, recipe.type) }
+            >
+              <img
+                src={ shareIcon }
+                alt="share"
+                data-testid={ `${index}-horizontal-share-btn` }
+              />
+            </button>
 
-          <Link to={ `/${recipe.type}s/${recipe.id}` }>
-            <button type="button">Ver Receita</button>
-          </Link>
-          <br />
-          {linkCopied && <span>Link copied!</span>}
-        </div>
-      ))}
+            <button
+              type="button"
+              onClick={ () => handleFavorite(recipe.id, recipe.type) }
+            >
+              <img
+                src={ blackHeartIcon }
+                alt="favorite"
+                data-testid={ `${index}-horizontal-favorite-btn` }
+              />
+            </button>
+
+            <Link to={ `/${recipe.type}s/${recipe.id}` }>
+              <button type="button">See recipe</button>
+            </Link>
+            <br />
+            {linkCopied && <span>Link copied!</span>}
+          </div>
+        ))
+      )}
     </div>
   );
 }

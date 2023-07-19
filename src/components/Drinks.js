@@ -23,7 +23,7 @@ function Drinks() {
   const maxRecipes = 12;
 
   return (
-    <div className="container overflow-auto">
+    <div className="container overflow-auto main-content">
       <h1>Drinks</h1>
       <Categories
         category="drinks"

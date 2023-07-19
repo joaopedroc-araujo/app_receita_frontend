@@ -20,21 +20,6 @@ function RecipeInProgress() {
   const [showLinkCopiedMsg, setShowLinkCopiedMsg] = useState(false);
   const { id } = useParams();
   const history = useHistory();
-
-  const getFavoriteRecipes = () => {
-    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
-      const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const isFavorited = storedRecipes.some(
-        (storedRecipe) => storedRecipe.id === id,
-      );
-      if (isFavorited) {
-        setFavoriteIcon(true);
-      } else {
-        setFavoriteIcon(false);
-      }
-    }
-  };
-
   // faz a requisicao da receita e salva no estado; verifica se a receita é favorita
   useEffect(() => {
     const { pathname } = window.location;
@@ -49,9 +34,18 @@ function RecipeInProgress() {
       }
     };
     fetchRecipe();
-    getFavoriteRecipes();
-  }, []);
-
+    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const isFavorited = storedRecipes.some(
+        (storedRecipe) => storedRecipe.id === id,
+      );
+      if (isFavorited) {
+        setFavoriteIcon(true);
+      } else {
+        setFavoriteIcon(false);
+      }
+    }
+  }, [id]);
   // Função que controla o estado de favorito
   const handleFavorite = () => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
@@ -87,10 +81,13 @@ function RecipeInProgress() {
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
     if (recipe.idMeal || recipe.idDrink) {
-      setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
+      setProgress((prevState) => ({
+        ...prevState,
+        [recipe.idMeal || recipe.idDrink]: checkedIngredients,
+      }));
+      // setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
     }
-  }, [checkedIngredients]);
-
+  }, [checkedIngredients, recipe, setProgress]);
   // função que controla o estado de checkedIngredients
   const getValue = (event) => {
     const { value, checked } = event.target;
@@ -106,7 +103,6 @@ function RecipeInProgress() {
       return progress[id].includes(ingredient);
     }
   };
-
   const handleChecked = () => {
     const totalOfIngredients = Object.keys(recipe)
       .filter(
@@ -119,16 +115,19 @@ function RecipeInProgress() {
       .map((ingredient) => ingredient).length;
     return totalOfIngredients === checkedIngredients.length;
   };
-
   const handleFinishBtn = () => {
-    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    const newRecipe = doneRecipeObject(recipe);
-    if (!doneRecipes.some((r) => r.id === newRecipe.id)) {
-      localStorage.setItem('doneRecipes', JSON.stringify([...doneRecipes, newRecipe]));
+    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      const doneRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      console.log(doneRecipes);
+      localStorage.setItem(
+        'doneRecipes',
+        JSON.stringify([...doneRecipes, doneRecipeObject(recipe)]),
+      );
+    } else {
+      localStorage.setItem('doneRecipes', JSON.stringify([doneRecipeObject(recipe)]));
     }
     history.push('/done-recipes');
   };
-
   return (
     <main>
       <div className={ style.imageRecipe }>

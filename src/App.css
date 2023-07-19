@@ -105,3 +105,23 @@ footer {
 .card-item {
   display: flex;
 }
+
+.done-recipe-image {
+  width: 100%;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+.footer {
+  background-color: #fcdc4c;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.main-content {
+  padding-bottom: 80px; /* Set this value to the height of your footer */
+}
