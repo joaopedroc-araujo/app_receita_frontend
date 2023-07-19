@@ -17,9 +17,8 @@ function Meals() {
     [],
   );
 
-  const updateMeals = (newDrinks) => {
-  const updateMeals = (newDrinks) => {
-    setMeals(newDrinks);
+  const updateMeals = (newMeals) => {
+    setMeals(newMeals);
   };
 
   const maxRecipes = 12;
