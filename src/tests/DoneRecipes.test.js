@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import clipboardCopy from 'clipboard-copy';
 import DoneRecipes from '../pages/DoneRecipes';
 import { mockedRecipes } from './mock/mockRecipes';
-import renderWithRouter from './utils/renderWIthRouter';
+import renderWithRouter from './utils/RenderWIthRouter';
 
 jest.mock('clipboard-copy', () => jest.fn());
 
