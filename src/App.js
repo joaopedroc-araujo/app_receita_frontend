@@ -12,74 +12,72 @@ import RecipeInProgress from './components/RecipeInProgress';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
-import { SearchProvider } from './context/SearchContext';
+
 import DoneRecipes from './pages/DoneRecipes';
 
 function App() {
   return (
     <div className="meals">
-      <SearchProvider>
-        <Switch>
-          <Route path="/" exact component={ Login } />
-          <Route
-            path="/meals"
-            exact
-            render={ () => (
-              <>
-                <Header />
-                <Meals />
-                <Footer />
-              </>
-            ) }
-          />
-          <Route
-            path="/drinks"
-            exact
-            render={ () => (
-              <>
-                <Header />
-                <Drinks />
-                <Footer />
-              </>
-            ) }
-          />
-          <Route exact path="/meals/:id" component={ RecipeDetails } />
-          <Route exact path="/drinks/:id" component={ RecipeDetails } />
-          <Route
-            path="/meals/:id/in-progress"
-            component={ RecipeInProgress }
-          />
-          <Route
-            path="/drinks/:id/in-progress"
-            component={ RecipeInProgress }
-          />
-          <Route
-            path="/profile"
-            render={ () => (
-              <>
-                <Header />
-                <Profile />
-                <Footer />
-              </>
-            ) }
-          />
-          <Route
-            path="/done-recipes"
-            render={ () => (
-              <>
-                <Header />
-                <DoneRecipes />
-              </>
-            ) }
-          />
-          <Route
-            path="/favorite-recipes"
-            render={ () => (
-              <FavoriteRecipes />
-            ) }
-          />
-        </Switch>
-      </SearchProvider>
+      <Switch>
+        <Route path="/" exact component={ Login } />
+        <Route
+          path="/meals"
+          exact
+          render={ () => (
+            <>
+              <Header />
+              <Meals />
+              <Footer />
+            </>
+          ) }
+        />
+        <Route
+          path="/drinks"
+          exact
+          render={ () => (
+            <>
+              <Header />
+              <Drinks />
+              <Footer />
+            </>
+          ) }
+        />
+        <Route exact path="/meals/:id" component={ RecipeDetails } />
+        <Route exact path="/drinks/:id" component={ RecipeDetails } />
+        <Route
+          path="/meals/:id/in-progress"
+          component={ RecipeInProgress }
+        />
+        <Route
+          path="/drinks/:id/in-progress"
+          component={ RecipeInProgress }
+        />
+        <Route
+          path="/profile"
+          render={ () => (
+            <>
+              <Header />
+              <Profile />
+              <Footer />
+            </>
+          ) }
+        />
+        <Route
+          path="/done-recipes"
+          render={ () => (
+            <>
+              <Header />
+              <DoneRecipes />
+            </>
+          ) }
+        />
+        <Route
+          path="/favorite-recipes"
+          render={ () => (
+            <FavoriteRecipes />
+          ) }
+        />
+      </Switch>
     </div>
   );
 }

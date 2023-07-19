@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import styles from '../styles/Meals.module.css';
 import mealIcon from '../images/mealIcon.svg';
 import Categories from './Categories';
 
 function Meals() {
   const [meals, setMeals] = useState([]);
-  const { results } = useSearchContext();
+  // const { results } = useSearchContext();
 
   useEffect(
     () => {
@@ -23,7 +23,7 @@ function Meals() {
 
   const maxRecipes = 12;
   // console.log(meals);
-  console.log(results);
+  // console.log(results);
   // console.log(url);
 
   return (
@@ -37,7 +37,7 @@ function Meals() {
         updateRecipes={ updateMeals }
       />
       <ul>
-        {(results.length > 0 ? results : meals)
+        { meals
           .slice(0, maxRecipes)
           .map((meal, index) => (
             <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>

@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSearchContext } from '../context/SearchContext';
+// import { useSearchContext } from '../context/SearchContext';
 import Categories from './Categories';
 
 function Drinks() {
   const [drinks, setDrinks] = useState([]);
-  const { results } = useSearchContext();
+  // const { results } = useSearchContext();
 
   useEffect(
     () => {
@@ -31,7 +31,7 @@ function Drinks() {
       />
 
       <ul>
-        {(results.length > 0 ? results : drinks)
+        {drinks
           .slice(0, maxRecipes).map((drink, index) => (
             <Link
               to={ `/drinks/${drink.idDrink}` }
