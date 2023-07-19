@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Carousel } from 'react-bootstrap';
-
+import useRecomendFetch from '../hooks/useRecomendFetch';
 // import './Recomended.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import useRecomendFetch from '../hooks/useRecomendFetch';
 
 function Recomended() {
   const [recomendations, setRecomendations] = useState(null);

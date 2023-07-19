@@ -1,19 +1,29 @@
-const initialState = {
-  recipes: [],
-  categories: [],
-};
+const initialState = [{
+  recipes: [{
+    drinks: [],
+    meals: [],
+    categories: [],
+  },
+  ],
+}];
 
 const recipesReducer = (state = initialState, action) => {
   switch (action.type) {
-  case 'FETCH_RECIPES_BY_CATEGORY':
+  case SET_MEALS:
     return {
       ...state,
-      recipes: action.payload,
+      recipes: {
+        ...state.recipes,
+        meals: action.payload,
+      },
     };
-  case 'FETCH_CATEGORIES':
+  case SET_DRINKS:
     return {
       ...state,
-      categories: action.payload,
+      recipes: {
+        ...state.recipes,
+        drinks: action.payload,
+      },
     };
   default:
     return state;

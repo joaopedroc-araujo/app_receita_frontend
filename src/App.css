@@ -77,7 +77,51 @@ header {
   }
 }
 
+iframe {
+  max-width: 100%;
+}
+
 footer {
   bottom: 0;
   position: fixed;
-} */
+}
+*/
+
+.recipe-details {
+  margin: 0 auto;
+  margin-top: 20%;
+  max-width: 800px;
+
+  /* overflow: auto; */
+  padding: 16px;
+}
+
+.recipe-detail-img {
+  align-items: center;
+  margin-left: 20%;
+  width: 60%;
+}
+
+.card-item {
+  display: flex;
+}
+
+.done-recipe-image {
+  width: 100%;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+}
+
+.footer {
+  background-color: #fcdc4c;
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.main-content {
+  padding-bottom: 80px; /* Set this value to the height of your footer */
+}

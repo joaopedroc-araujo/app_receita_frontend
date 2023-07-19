@@ -10,7 +10,6 @@ import { doneRecipeObject, favoriteRecipeObject } from '../utils/functions';
 const placeholder = 'https://via.placeholder.com/360x161?text=Recipe%20Thumb';
 const URL_MEALS = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
 const URL_DRINKS = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
-
 const copy = require('clipboard-copy');
 
 function RecipeInProgress() {
@@ -21,20 +20,6 @@ function RecipeInProgress() {
   const [showLinkCopiedMsg, setShowLinkCopiedMsg] = useState(false);
   const { id } = useParams();
   const history = useHistory();
-  const getFavoriteRecipes = () => {
-    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
-      const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const isFavorited = storedRecipes.some(
-        (storedRecipe) => storedRecipe.id === id,
-      );
-      if (isFavorited) {
-        setFavoriteIcon(true);
-      } else {
-        setFavoriteIcon(false);
-      }
-    }
-  };
-
   // faz a requisicao da receita e salva no estado; verifica se a receita é favorita
   useEffect(() => {
     const { pathname } = window.location;
@@ -49,9 +34,18 @@ function RecipeInProgress() {
       }
     };
     fetchRecipe();
-    getFavoriteRecipes();
-  }, []);
-
+    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const isFavorited = storedRecipes.some(
+        (storedRecipe) => storedRecipe.id === id,
+      );
+      if (isFavorited) {
+        setFavoriteIcon(true);
+      } else {
+        setFavoriteIcon(false);
+      }
+    }
+  }, [id]);
   // Função que controla o estado de favorito
   const handleFavorite = () => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
@@ -64,7 +58,6 @@ function RecipeInProgress() {
         setFavoriteIcon(true);
       } else {
         const storedRecipesArray = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
         // storedRecipesArray.indexOf(colunaOperadorValor.coluna);
         const indexOfRecipeToRemove = storedRecipesArray.find(
           (storedRecipe, index) => (storedRecipe.id === recipe.id ? index : false),
@@ -85,14 +78,16 @@ function RecipeInProgress() {
       setFavoriteIcon(true);
     }
   };
-
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
     if (recipe.idMeal || recipe.idDrink) {
-      setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
+      setProgress((prevState) => ({
+        ...prevState,
+        [recipe.idMeal || recipe.idDrink]: checkedIngredients,
+      }));
+      // setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
     }
-  }, [checkedIngredients]);
-
+  }, [checkedIngredients, recipe, setProgress]);
   // função que controla o estado de checkedIngredients
   const getValue = (event) => {
     const { value, checked } = event.target;
@@ -108,7 +103,6 @@ function RecipeInProgress() {
       return progress[id].includes(ingredient);
     }
   };
-
   const handleChecked = () => {
     const totalOfIngredients = Object.keys(recipe)
       .filter(
@@ -121,7 +115,6 @@ function RecipeInProgress() {
       .map((ingredient) => ingredient).length;
     return totalOfIngredients === checkedIngredients.length;
   };
-
   const handleFinishBtn = () => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
       const doneRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -135,7 +128,6 @@ function RecipeInProgress() {
     }
     history.push('/done-recipes');
   };
-
   return (
     <main>
       <div className={ style.imageRecipe }>
@@ -174,7 +166,6 @@ function RecipeInProgress() {
         data-testid="recipe-title"
       >
         { recipe.strMeal || recipe.strDrink }
-
       </h1>
       <h2 data-testid="recipe-category">{recipe.strCategory}</h2>
       <div className={ style.instructions__container }>
@@ -208,7 +199,6 @@ function RecipeInProgress() {
                   {' '}
                   {`${recipe[ingredient]}`}
                 </li>
-
               </label>
             ))}
         </ul>
@@ -229,8 +219,6 @@ function RecipeInProgress() {
         </button>
       </div>
     </main>
-
   );
 }
-
 export default RecipeInProgress;
