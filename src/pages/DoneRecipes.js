@@ -5,26 +5,29 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
 
 function DoneRecipes() {
-  const [linkCopied, setLinkCopied] = useState(false);
+  const [linkCopied, setLinkCopied] = useState({});
   const [filter, setFilter] = useState('all');
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
   // console.log(doneRecipes);
 
-  const timeOutIntervail = 2000;
-
+  const timeOutInterval = 2000;
   const handleShare = (id, type) => {
     const url = `${window.location.origin}/${type}s/${id}`;
     clipboardCopy(url);
-    setLinkCopied(true);
-    setTimeout(() => setLinkCopied(false), timeOutIntervail);
+    setLinkCopied((prevState) => ({ ...prevState, [id]: true }));
+    setTimeout(() => setLinkCopied((prevState) => ({
+      ...prevState,
+      [id]: false,
+    })), timeOutInterval);
   };
 
-  const filteredRecipes = doneRecipes.filter((recipe) => {
-    if (filter === 'all') return true;
-    return recipe.type === filter;
-  });
-
+  const filteredRecipes = doneRecipes
+    ? doneRecipes.filter((recipe) => {
+      if (filter === 'all') return true;
+      return recipe.type === filter;
+    })
+    : [];
   return (
     <div>
       <h1>Done recipes:</h1>
@@ -93,8 +96,11 @@ function DoneRecipes() {
             <Link to={ `/${recipe.type}s/${recipe.id}` }>
               <button type="button">See recipe</button>
             </Link>
+
             <br />
-            {linkCopied && <span>Link copied!</span>}
+
+            {linkCopied[recipe.id] && <span>Link copied!</span>}
+
           </div>
         ))
       )}
