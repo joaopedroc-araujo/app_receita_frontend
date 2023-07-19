@@ -7,17 +7,23 @@ import Login from './pages/Login';
 import Footer from './components/Footer';
 import Drinks from './components/Drinks';
 import Meals from './components/Meals';
+<<<<<<< HEAD
 
 import RecipeInProgress from './components/RecipeInProgress';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
 
+=======
+import Profile from './pages/Profile';
+import RecipeDetails from './pages/RecipeDetails';
+>>>>>>> 9371aa251cdb28548c7e0c725dd24c73e458d223
 import DoneRecipes from './pages/DoneRecipes';
 
 function App() {
   return (
     <div className="meals">
+<<<<<<< HEAD
       <Switch>
         <Route path="/" exact component={ Login } />
         <Route
@@ -78,6 +84,7 @@ function App() {
           ) }
         />
       </Switch>
+
     </div>
   );
 }

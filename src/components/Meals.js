@@ -18,6 +18,7 @@ function Meals() {
   );
 
   const updateMeals = (newDrinks) => {
+  const updateMeals = (newDrinks) => {
     setMeals(newDrinks);
   };
 
