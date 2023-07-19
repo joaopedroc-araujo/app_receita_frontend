@@ -6,6 +6,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 function DoneRecipes() {
   const [linkCopied, setLinkCopied] = useState(false);
+  const [filter, setFilter] = useState('all');
   const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
 
   // console.log(doneRecipes);
@@ -19,13 +20,25 @@ function DoneRecipes() {
     setTimeout(() => setLinkCopied(false), timeOutIntervail);
   };
 
+  const filteredRecipes = doneRecipes.filter((recipe) => {
+    if (filter === 'all') return true;
+    return recipe.type === filter;
+  });
+
   return (
     <div>
       <h1>Done recipes:</h1>
-      <button data-testid="filter-by-all-btn">All</button>
-      <button data-testid="filter-by-meal-btn">Meals</button>
-      <button data-testid="filter-by-drink-btn">Drinks</button>
-      {doneRecipes.map((recipe, index) => (
+      <button data-testid="filter-by-all-btn" onClick={ () => setFilter('all') }>
+        All
+      </button>
+      <button data-testid="filter-by-meal-btn" onClick={ () => setFilter('meal') }>
+        Meals
+      </button>
+      <button data-testid="filter-by-drink-btn" onClick={ () => setFilter('drink') }>
+        Drinks
+      </button>
+
+      {filteredRecipes.map((recipe, index) => (
         <div key={ index }>
 
           <h3 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h3>
@@ -75,7 +88,6 @@ function DoneRecipes() {
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
             <button type="button">Ver Receita</button>
           </Link>
-
           <br />
           {linkCopied && <span>Link copied!</span>}
         </div>
