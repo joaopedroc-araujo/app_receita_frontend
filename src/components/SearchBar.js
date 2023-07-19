@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom/';
 
 function SearchBar() {
   const history = useHistory();
-  const [visivel, setVisivel] = useState(false);
+  // const [visivel, setVisivel] = useState(false);
   const [searchtype, setSearch] = useState('ingredient');
   const [input, setInput] = useState('');
   const [meals, setMeals] = useState([]);
@@ -111,54 +111,49 @@ function SearchBar() {
     }
   };
 
-  const handleVisivel = () => {
+  /* const handleVisivel = () => {
     setVisivel(!visivel);
   };
-
+*/
   return (
     <div>
-      <button onClick={ handleVisivel } data-testid="search-top-btn">
-        Search
-      </button>
-      {visivel && (
-        <div className="container-invisible">
-          <input
-            type="radio"
-            id="Ingredient"
-            data-testid="ingredient-search-radio"
-            name="radio-type"
-            value="ingredient"
-            onClick={ (e) => setSearch(e.target.value) }
-          />
-          <label htmlFor="Ingredient">Ingredient</label>
-          <input
-            type="radio"
-            id="name"
-            data-testid="name-search-radio"
-            name="radio-type"
-            value="name"
-            onClick={ (e) => setSearch(e.target.value) }
-          />
-          <label htmlFor="Name">Name</label>
-          <input
-            type="radio"
-            id="letter"
-            data-testid="first-letter-search-radio"
-            value="letter"
-            name="radio-type"
-            onClick={ (e) => setSearch(e.target.value) }
-          />
-          <label htmlFor="letter">Letter</label>
-          <input
-            type="text"
-            data-testid="search-input"
-            onChange={ (e) => setInput(e.target.value) }
-          />
-          <button data-testid="exec-search-btn" onClick={ Search }>
-            Search
-          </button>
-        </div>
-      )}
+      <div className="container-invisible">
+        <input
+          type="radio"
+          id="Ingredient"
+          data-testid="ingredient-search-radio"
+          name="radio-type"
+          value="ingredient"
+          onClick={ (e) => setSearch(e.target.value) }
+        />
+        <label htmlFor="Ingredient">Ingredient</label>
+        <input
+          type="radio"
+          id="name"
+          data-testid="name-search-radio"
+          name="radio-type"
+          value="name"
+          onClick={ (e) => setSearch(e.target.value) }
+        />
+        <label htmlFor="Name">Name</label>
+        <input
+          type="radio"
+          id="letter"
+          data-testid="first-letter-search-radio"
+          value="letter"
+          name="radio-type"
+          onClick={ (e) => setSearch(e.target.value) }
+        />
+        <label htmlFor="letter">Letter</label>
+        <input
+          type="text"
+          data-testid="search-input"
+          onChange={ (e) => setInput(e.target.value) }
+        />
+        <button data-testid="exec-search-btn" onClick={ Search }>
+          Search
+        </button>
+      </div>
 
       {meals.length > 0 && (
         <div className="meal-results">
