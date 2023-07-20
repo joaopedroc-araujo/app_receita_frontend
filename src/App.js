@@ -5,12 +5,13 @@ import { Route, Switch } from 'react-router-dom';
 import Header from './components/Header';
 import Login from './pages/Login';
 import Footer from './components/Footer';
-import RecipeDetails from './components/RecipeDetails';
-import RecipeInProgress from './components/RecipeInProgress';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import DoneRecipes from './pages/DoneRecipes';
+import RecipeDetails from './pages/RecipeDetails';
 import Meals from './components/Meals';
 import Drinks from './components/Drinks';
+import RecipeInProgress from './components/RecipeInProgress';
 
 function App() {
   return (
@@ -62,7 +63,10 @@ function App() {
         <Route
           path="/done-recipes"
           render={ () => (
-            <Header />
+            <>
+              <Header />
+              <DoneRecipes />
+            </>
           ) }
         />
         <Route
@@ -74,7 +78,6 @@ function App() {
       </Switch>
 
     </div>
-
   );
 }
 

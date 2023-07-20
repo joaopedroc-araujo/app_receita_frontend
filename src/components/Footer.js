@@ -17,6 +17,7 @@ function Footer() {
   return (
     <div>
       <footer
+        className="footer"
         data-testid="footer"
         style={ { marginTop: 'auto' } }
       >

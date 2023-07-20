@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -20,6 +20,7 @@ function RecipeInProgress() {
   const [showLinkCopiedMsg, setShowLinkCopiedMsg] = useState(false);
   const { id } = useParams();
   const history = useHistory();
+
   // faz a requisicao da receita e salva no estado; verifica se a receita é favorita
   useEffect(() => {
     const { pathname } = window.location;
@@ -46,6 +47,7 @@ function RecipeInProgress() {
       }
     }
   }, [id]);
+
   // Função que controla o estado de favorito
   const handleFavorite = () => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
@@ -78,14 +80,15 @@ function RecipeInProgress() {
       setFavoriteIcon(true);
     }
   };
+
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
     if (recipe.idMeal || recipe.idDrink) {
-      // setProgress((prevState) => ({
-      //   ...prevState,
-      //   [recipe.idMeal || recipe.idDrink]: checkedIngredients,
-      // }));
-      setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
+      setProgress((prevState) => ({
+        ...prevState,
+        [recipe.idMeal || recipe.idDrink]: checkedIngredients,
+      }));
+      // setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
     }
   }, [checkedIngredients, recipe, setProgress]);
 
@@ -104,7 +107,6 @@ function RecipeInProgress() {
       return progress[id].includes(ingredient);
     }
   };
-
   const handleChecked = () => {
     const totalOfIngredients = Object.keys(recipe)
       .filter(
@@ -115,10 +117,8 @@ function RecipeInProgress() {
           && recipe[ingredient] !== null,
       )
       .map((ingredient) => ingredient).length;
-    // console.log(totalOfIngredients);
     return totalOfIngredients === checkedIngredients.length;
   };
-
   const handleFinishBtn = () => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
       const doneRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
@@ -132,9 +132,6 @@ function RecipeInProgress() {
     }
     history.push('/done-recipes');
   };
-  // console.log(checkedIngredients);
-  // console.log(progress);
-  // console.log(recipe);
   return (
     <main>
       <div className={ style.imageRecipe }>
@@ -215,17 +212,15 @@ function RecipeInProgress() {
         >
           {recipe.strInstructions}
         </p>
-        <Link to="/done-recipes">
-          <button
-            className={ style.finishRecipes }
-            type="button"
-            data-testid="finish-recipe-btn"
-            disabled={ !handleChecked() }
-            onClick={ handleFinishBtn }
-          >
-            Finalizar Receita
-          </button>
-        </Link>
+        <button
+          className={ style.finishRecipes }
+          type="button"
+          data-testid="finish-recipe-btn"
+          disabled={ !handleChecked() }
+          onClick={ handleFinishBtn }
+        >
+          Finalizar Receita
+        </button>
       </div>
     </main>
   );
