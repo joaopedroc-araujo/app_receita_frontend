@@ -3,7 +3,7 @@ import styles from '../styles/Meals.module.css';
 import profileIcon from '../images/profileIcon.svg';
 
 function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const email = JSON.parse(localStorage.getItem('user'));
 
   const handleLogout = () => {
     localStorage.removeItem('user');
