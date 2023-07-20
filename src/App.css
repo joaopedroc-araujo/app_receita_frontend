@@ -125,3 +125,20 @@ button {
 .main-content {
   padding-bottom: 80px; /* Set this value to the height of your footer */
 }
+
+ul {
+  list-style: none;
+}
+
+.start-recipe-btn {
+  background: #fcc436;
+  bottom: 0;
+  flex-shrink: 0;
+  height: 40px;
+  margin-top: 5px;
+
+  /* position: fixed ! important; */
+  text-align: center;
+  width: 336px;
+}
+

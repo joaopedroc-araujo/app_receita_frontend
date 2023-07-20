@@ -84,13 +84,9 @@ function RecipeInProgress() {
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
     if (recipe.idMeal || recipe.idDrink) {
-      setProgress((prevState) => ({
-        ...prevState,
-        [recipe.idMeal || recipe.idDrink]: checkedIngredients,
-      }));
-      // setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
+      setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
     }
-  }, [checkedIngredients, recipe, setProgress]);
+  }, [checkedIngredients]);
 
   // função que controla o estado de checkedIngredients
   const getValue = (event) => {

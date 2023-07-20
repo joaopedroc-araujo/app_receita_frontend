@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { useParams, useRouteMatch, Link, useHistory } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
@@ -124,6 +123,50 @@ function RecipeDetails() {
     }
   };
 
+  const handleStartButton = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const recipeId = id;
+    let buttonText = 'Start Recipe';
+
+    if (doneRecipes && doneRecipes.some((newRecipe) => newRecipe.id === id)) {
+      return (
+        <Link to="/done-recipes">
+          <p>Recipe already done!</p>
+        </Link>
+      );
+    }
+
+    if (inProgressRecipes) {
+      const recipeStarted = Object.keys(inProgressRecipes).includes(recipeId);
+      if (recipeStarted) {
+        buttonText = 'Continue Recipe';
+      }
+    }
+
+    return (
+      <Link to={ isMeal ? `/meals/${id}/in-progress` : `/drinks/${id}/in-progress` }>
+        <button
+          data-testid="start-recipe-btn"
+          style={ {
+            position: 'fixed',
+            display: 'block',
+            bottom: '0',
+            backgroundColor: '#FCC436',
+            color: 'white',
+            width: '336px',
+            height: '40px',
+            borderRadius: '5px',
+            margin: '0 auto',
+            marginBottom: '15px',
+          } }
+        >
+          {buttonText}
+        </button>
+      </Link>
+    );
+  };
+
   if (!recipe) {
     return <div>Loading...</div>;
   }
@@ -194,6 +237,7 @@ function RecipeDetails() {
         )}
 
         <Recomended />
+        {handleStartButton()}
       </div>
     </>
   );

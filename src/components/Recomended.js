@@ -31,7 +31,7 @@ function Recomended() {
 
   return (
     <div className="recomended-carousel">
-      <Carousel>
+      <Carousel style={ { marginBottom: '50px' } }>
         {groupedRecomendations.map((group, index) => (
           <Carousel.Item
             key={ index }
