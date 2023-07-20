@@ -83,8 +83,10 @@ function RecipeInProgress() {
 
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
-    if (recipe.idMeal || recipe.idDrink) {
-      setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
+    if (recipe.idMeal) {
+      setProgress({ ...progress, meals: { [recipe.idMeal]: checkedIngredients } });
+    } else if (recipe.idDrink) {
+      setProgress({ ...progress, drinks: { [recipe.idDrink]: checkedIngredients } });
     }
   }, [checkedIngredients]);
 
@@ -99,8 +101,12 @@ function RecipeInProgress() {
   };
 
   const handleCheckedIngredients = (ingredient) => {
-    if (progress[id]) {
-      return progress[id].includes(ingredient);
+    if (recipe.idMeal) {
+      if (progress.meals[id]) {
+        return progress.meals[id].includes(ingredient);
+      }
+    } else if (recipe.idDrink[id]) {
+      return progress.drinks[id].includes(ingredient);
     }
   };
   const handleChecked = () => {
