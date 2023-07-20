@@ -57,6 +57,7 @@ describe('<Profile />', () => {
         <Profile />
       </Router>,
     );
+
     act(() => {
       userEvent.click(screen.getByTestId('profile-logout-btn'));
     });
