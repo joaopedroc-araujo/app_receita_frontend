@@ -13,7 +13,7 @@ describe('<Profile />', () => {
     window.localStorage.setItem('user', JSON.stringify('email@email.com'));
   });
 
-  it('Testa se a página Profile renderiza todos os itens', () => {
+  it('Testa se a página Profile renderiza todos os itens', async () => {
     render(
       <Router history={ history }>
         <Profile />
