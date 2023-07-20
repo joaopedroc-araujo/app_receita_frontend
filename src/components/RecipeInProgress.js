@@ -84,9 +84,13 @@ function RecipeInProgress() {
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
     if (recipe.idMeal) {
-      setProgress({ ...progress, meals: { [recipe.idMeal]: checkedIngredients } });
+      setProgress({
+        meals: { ...progress.meals, [recipe.idMeal]: checkedIngredients },
+      });
     } else if (recipe.idDrink) {
-      setProgress({ ...progress, drinks: { [recipe.idDrink]: checkedIngredients } });
+      setProgress({
+        drinks: { ...progress.drinks, [recipe.idDrink]: checkedIngredients },
+      });
     }
   }, [checkedIngredients]);
 
