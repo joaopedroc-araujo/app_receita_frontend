@@ -89,6 +89,15 @@ function RecipeInProgress() {
       setProgress({ ...progress,
         drinks: { ...progress.drinks, [recipe.idDrink]: checkedIngredients },
       });
+    if (recipe.idMeal) {
+      setProgress({ ...progress,
+        meals: { ...progress.meals, [recipe.idMeal]: checkedIngredients },
+      });
+    } else if (recipe.idDrink) {
+      console.log(progress);
+      setProgress({ ...progress,
+        drinks: { ...progress.drinks, [recipe.idDrink]: checkedIngredients },
+      });
     }
   }, [checkedIngredients]);
   // função que controla o estado de checkedIngredients
@@ -109,8 +118,10 @@ function RecipeInProgress() {
         return progress.drinks[id].includes(ingredient);
       }
     }
+
     return false;
   };
+
   const handleChecked = () => {
     const totalOfIngredients = Object.keys(recipe)
       .filter(

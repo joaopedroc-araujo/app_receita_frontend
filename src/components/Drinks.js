@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // import { useSearchContext } from '../context/SearchContext';
-import Categories from './Categories';
 import styles from '../styles/Meals.module.css';
 import drinkIcon from '../images/drinkIcon.svg';
+import Categories from './Categories';
 
 function Drinks() {
   const [drinks, setDrinks] = useState([]);

@@ -22,6 +22,11 @@ function Login() {
     }
   }, [email, password]);
 
+  // handleEmailInput = () => {
+  //   setEmail(target.value);
+  //   localStorage.setItem('favoriteRecipes', JSON.stringify([...storedRecipesArray]));
+  // };
+
   return (
     <form className={ styles.form__login }>
       <div className={ styles.login__logo }>
