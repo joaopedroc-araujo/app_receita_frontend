@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import Recomended from './Recomended';
+import Recomended from '../components/Recomended';
 
 const copy = require('clipboard-copy');
 
@@ -127,7 +127,7 @@ function RecipeDetails() {
   if (!recipe) {
     return <div>Loading...</div>;
   }
-
+  // console.log(recipe);
   return (
     <>
       <div>
@@ -192,8 +192,9 @@ function RecipeDetails() {
             data-testid="video"
           />
         )}
+
+        <Recomended />
       </div>
-      <Recomended />
     </>
   );
 }
