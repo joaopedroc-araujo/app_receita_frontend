@@ -40,8 +40,14 @@ function Meals() {
         { meals
           .slice(0, maxRecipes)
           .map((meal, index) => (
-            <Link to={ `/meals/${meal.idMeal}` } key={ meal.idMeal }>
-              <li key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
+            <Link
+              to={ `/meals/${meal.idMeal}` }
+              key={ meal.idMeal }
+            >
+              <li
+                key={ meal.idMeal }
+                data-testid={ `${index}-recipe-card` }
+              >
                 <img
                   src={ meal.strMealThumb }
                   alt={ meal.strMeal }
