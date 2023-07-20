@@ -84,11 +84,12 @@ function RecipeInProgress() {
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
     if (recipe.idMeal) {
-      setProgress({
+      setProgress({ ...progress,
         meals: { ...progress.meals, [recipe.idMeal]: checkedIngredients },
       });
     } else if (recipe.idDrink) {
-      setProgress({
+      console.log(progress);
+      setProgress({ ...progress,
         drinks: { ...progress.drinks, [recipe.idDrink]: checkedIngredients },
       });
     }
@@ -105,14 +106,18 @@ function RecipeInProgress() {
   };
 
   const handleCheckedIngredients = (ingredient) => {
-    if (recipe.idMeal) {
-      if (progress.meals[id]) {
+    if (progress) {
+      if (recipe.idMeal && progress.meals && progress.meals && progress.meals[id]) {
         return progress.meals[id].includes(ingredient);
       }
-    } else if (recipe.idDrink[id]) {
-      return progress.drinks[id].includes(ingredient);
+      if (recipe.idDrink && progress.drinks && progress.drinks[id]) {
+        return progress.drinks[id].includes(ingredient);
+      }
     }
+
+    return false;
   };
+
   const handleChecked = () => {
     const totalOfIngredients = Object.keys(recipe)
       .filter(
@@ -128,7 +133,6 @@ function RecipeInProgress() {
   const handleFinishBtn = () => {
     if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
       const doneRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      console.log(doneRecipes);
       localStorage.setItem(
         'doneRecipes',
         JSON.stringify([...doneRecipes, doneRecipeObject(recipe)]),
