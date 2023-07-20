@@ -21,19 +21,6 @@ function RecipeInProgress() {
   const [showLinkCopiedMsg, setShowLinkCopiedMsg] = useState(false);
   const { id } = useParams();
   const history = useHistory();
-  const getFavoriteRecipes = () => {
-    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
-      const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-      const isFavorited = storedRecipes.some(
-        (storedRecipe) => storedRecipe.id === id,
-      );
-      if (isFavorited) {
-        setFavoriteIcon(true);
-      } else {
-        setFavoriteIcon(false);
-      }
-    }
-  };
 
   // faz a requisicao da receita e salva no estado; verifica se a receita é favorita
   useEffect(() => {
@@ -49,8 +36,18 @@ function RecipeInProgress() {
       }
     };
     fetchRecipe();
-    getFavoriteRecipes();
-  }, []);
+    if (JSON.parse(localStorage.getItem('favoriteRecipes'))) {
+      const storedRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+      const isFavorited = storedRecipes.some(
+        (storedRecipe) => storedRecipe.id === id,
+      );
+      if (isFavorited) {
+        setFavoriteIcon(true);
+      } else {
+        setFavoriteIcon(false);
+      }
+    }
+  }, [id]);
 
   // Função que controla o estado de favorito
   const handleFavorite = () => {
@@ -89,9 +86,10 @@ function RecipeInProgress() {
   // salva o estado checkedIngredients no localStorage
   useEffect(() => {
     if (recipe.idMeal || recipe.idDrink) {
-      setProgress({ ...progress, [recipe.idMeal || recipe.idDrink]: checkedIngredients });
+      setProgress((prevProgress) => (
+        { ...prevProgress, [recipe.idMeal || recipe.idDrink]: checkedIngredients }));
     }
-  }, [checkedIngredients]);
+  }, [checkedIngredients, recipe.idDrink, recipe.idMeal, setProgress]);
 
   // função que controla o estado de checkedIngredients
   const getValue = (event) => {

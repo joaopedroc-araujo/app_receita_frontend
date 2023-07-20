@@ -47,7 +47,6 @@ function FavoriteRecipes() {
 
   const handleFilters = (target) => {
     if (target.innerHTML === 'Food') {
-      console.log('Food:');
       const foodRecipes = allStoredRecipes.filter((recipe) => recipe.type === 'meal');
       setStoredRecipes(foodRecipes);
       localStorage.setItem(
@@ -59,7 +58,6 @@ function FavoriteRecipes() {
         ),
       );
     } else if (target.innerHTML === 'Drinks') {
-      console.log('Drinks:');
       const drinksRecipes = allStoredRecipes.filter((recipe) => recipe.type === 'drink');
       setStoredRecipes(drinksRecipes);
       localStorage.setItem(
@@ -71,7 +69,6 @@ function FavoriteRecipes() {
         ),
       );
     } else {
-      console.log('All:');
       setStoredRecipes(allStoredRecipes);
       localStorage.setItem(
         'favoriteRecipes',
