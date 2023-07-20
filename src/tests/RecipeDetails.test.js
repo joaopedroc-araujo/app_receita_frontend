@@ -1,7 +1,7 @@
 import { render, screen, act, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
-import { Router, Link } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 // import useRecomendFetch from '../hooks/useRecomendFetch';
 import clipboardCopy from 'clipboard-copy';
 import RecipeDetails from '../pages/RecipeDetails';
