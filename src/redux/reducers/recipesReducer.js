@@ -5,6 +5,7 @@ const initialState = [{
     categories: [],
   },
   ],
+  email: '',
 }];
 
 const recipesReducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ const recipesReducer = (state = initialState, action) => {
         ...state.recipes,
         drinks: action.payload,
       },
+    };
+  case SET_EMAIL:
+    return {
+      ...state,
+      email: action.payload,
     };
   default:
     return state;
