@@ -87,18 +87,14 @@ function Categories({ category, updateRecipes }) {
             data-testid={ `${menuCategory.strCategory}-category-filter` }
             onClick={ () => handleCategoryClick(menuCategory.strCategory) }
           >
-            |
-            {' '}
             {menuCategory.strCategory}
-            {' '}
-            |
           </button>
         ))}
         <button
           data-testid="All-category-filter"
           onClick={ () => fetchAllRecipes() }
         >
-          All |
+          All
         </button>
       </h1>
     </div>

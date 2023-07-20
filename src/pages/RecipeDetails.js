@@ -126,7 +126,6 @@ function RecipeDetails() {
   const handleStartButton = () => {
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const recipeId = id;
     let buttonText = 'Start Recipe';
 
     if (doneRecipes && doneRecipes.some((newRecipe) => newRecipe.id === id)) {
@@ -138,11 +137,13 @@ function RecipeDetails() {
     }
 
     if (inProgressRecipes) {
-      const recipeStarted = Object.keys(inProgressRecipes).includes(recipeId);
+      const recipeType = isMeal ? 'meals' : 'drinks';
+      const recipeStarted = Object.keys(inProgressRecipes[recipeType]).includes(id);
       if (recipeStarted) {
         buttonText = 'Continue Recipe';
       }
     }
+    // console.log(id);
 
     return (
       <Link to={ isMeal ? `/meals/${id}/in-progress` : `/drinks/${id}/in-progress` }>
